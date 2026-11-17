@@ -1,0 +1,100 @@
+/* ==========================================================================
+   TOKENS.CSS — SWISS TECHNICAL STUDIO & EMIL KOWALSKI MOTION SYSTEM
+   ========================================================================== */
+
+:root {
+  /* Superficies Carbon Obsidian (Modo Oscuro Predeterminado) */
+  --bg-canvas: #09090B;
+  --bg-surface: #111114;
+  --bg-elevated: #17171C;
+  --bg-interactive: #202027;
+  --bg-glass: rgba(17, 17, 20, 0.82);
+
+  /* Jerarquía de Texto */
+  --text-primary: #F4F4F6;
+  --text-secondary: #A1A1AA;
+  --text-muted: #686873;
+
+  /* Bordes Hairline de Precisión y Luz Especular Superior */
+  --border-hairline: rgba(255, 255, 255, 0.07);
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-focus: rgba(255, 255, 255, 0.28);
+  --inner-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.07);
+  --shadow-elevated: 0 14px 34px -12px rgba(0, 0, 0, 0.48), var(--inner-highlight);
+
+  /* Acentos Técnicos (International Orange + Blueprint Cyan + Signal Emerald) */
+  --accent: #FF5500;
+  --accent-hover: #E64D00;
+  --accent-soft: rgba(255, 85, 0, 0.12);
+  --accent-border: rgba(255, 85, 0, 0.36);
+
+  --blueprint: #38BDF8;
+  --blueprint-soft: rgba(56, 189, 248, 0.12);
+  --blueprint-border: rgba(56, 189, 248, 0.35);
+
+  --signal-ok: #10B981;
+  --signal-ok-soft: rgba(16, 185, 129, 0.12);
+  --signal-warn: #F59E0B;
+  --signal-warn-soft: rgba(245, 158, 11, 0.12);
+  --signal-err: #EF4444;
+  --signal-err-soft: rgba(239, 68, 68, 0.12);
+
+  /* Curvas Cinemáticas de Emil Kowalski (animations.dev) */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Duraciones calibradas (micro-interacciones rápidas < 300ms) */
+  --dur-fast: 140ms;
+  --dur-base: 240ms;
+  --dur-slow: 360ms;
+
+  /* Tipografía Editorial + Técnica */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Radios Geométricos */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+}
+
+html[data-theme="light"] {
+  --bg-canvas: #F5F4F0;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #ECEAE3;
+  --bg-interactive: #E2DFD6;
+  --bg-glass: rgba(245, 244, 240, 0.86);
+
+  --text-primary: #121215;
+  --text-secondary: #4E4E57;
+  --text-muted: #82828C;
+
+  --border-hairline: rgba(18, 18, 21, 0.08);
+  --border-subtle: rgba(18, 18, 21, 0.15);
+  --border-focus: rgba(18, 18, 21, 0.36);
+  --inner-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.75);
+  --shadow-elevated: 0 14px 30px -14px rgba(18, 18, 21, 0.12), var(--inner-highlight);
+
+  --accent: #DF4700;
+  --accent-hover: #C23E00;
+  --accent-soft: rgba(223, 71, 0, 0.09);
+  --accent-border: rgba(223, 71, 0, 0.32);
+
+  --blueprint: #0284C7;
+  --blueprint-soft: rgba(2, 132, 199, 0.1);
+  --blueprint-border: rgba(2, 132, 199, 0.3);
+}
+
+/* Respeto estricto a accesibilidad vestibular (Emil Kowalski Rule) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

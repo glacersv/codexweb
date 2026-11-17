@@ -1,0 +1,17 @@
+{
+  "name": "codexweb-grid-lab",
+  "private": true,
+  "version": "2.0.0",
+  "description": "GRID/LAB — Estudio y Aula Virtual de Arquitectura, Retículas y Desarrollo Web (TypeScript + Modular CSS)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  }
+}

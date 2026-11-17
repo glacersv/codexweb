@@ -1,0 +1,381 @@
+/* ==========================================================================
+   LABS.CSS — ESTILOS DE LOS 5 LABORATORIOS INTERACTIVOS DEL CURSO
+   ========================================================================== */
+
+/* 01. RAYOS X: INSPECTOR DE FILAS Y COLUMNAS */
+.xray-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.xray-viewport {
+  position: relative;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  min-height: 500px;
+  overflow: hidden;
+  user-select: none;
+}
+
+.ruler-top {
+  height: 24px;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.xray-stage {
+  position: relative;
+  padding: 24px;
+  min-height: 476px;
+}
+
+.xray-guides-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.xray-guide-col {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-left: 1.5px dashed var(--accent);
+  background: rgba(255, 85, 0, 0.035);
+  transition: all 240ms var(--ease-out-quart);
+}
+
+.xray-guide-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1.5px dashed var(--blueprint);
+  background: rgba(56, 189, 248, 0.035);
+  transition: all 240ms var(--ease-out-quart);
+}
+
+.guide-badge {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #fff;
+}
+
+.guide-badge.col {
+  top: 6px;
+  left: 6px;
+  background: var(--accent);
+}
+
+.guide-badge.row {
+  top: 6px;
+  right: 6px;
+  background: var(--blueprint);
+  color: #09090B;
+}
+
+.counter-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+}
+
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.stepper button {
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.stepper button:hover {
+  background: var(--bg-interactive);
+}
+
+.stepper span {
+  width: 34px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* 02. ESTUDIO CSS GRID 2D */
+.grid-studio-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.semantic-palette {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.brush-card {
+  appearance: none;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-primary);
+  transition: all 160ms var(--ease-out-quart);
+}
+
+.brush-card:hover {
+  border-color: var(--border-subtle);
+  background: var(--bg-interactive);
+}
+
+.brush-card:active {
+  transform: scale(0.97);
+}
+
+.brush-card.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.brush-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.grid-canvas-container {
+  padding: 20px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  min-height: 410px;
+  position: relative;
+  user-select: none;
+}
+
+.grid-cell {
+  position: relative;
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--border-subtle);
+  background: var(--bg-surface);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: crosshair;
+  transition: transform 150ms var(--ease-out-quart),
+              border-color 150ms ease,
+              background 150ms ease;
+  min-height: 78px;
+}
+
+.grid-cell:hover {
+  border-color: var(--accent);
+  background: var(--bg-interactive);
+}
+
+.grid-cell.painted {
+  border-style: solid;
+}
+
+.cell-coord {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.cell-tag-label {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.rendered-block {
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  animation: blockPop 260ms var(--ease-out-quart);
+}
+
+@keyframes blockPop {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* 03. CONSTRUCTOR DE MOCKUPS & ÁRBOL DOM */
+.mockup-studio-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr 370px;
+  gap: 18px;
+  align-items: start;
+}
+
+.component-pill {
+  padding: 11px 13px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-hairline);
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 160ms var(--ease-out-quart);
+}
+
+.component-pill:hover {
+  border-color: var(--border-focus);
+  background: var(--bg-interactive);
+  transform: translateX(2px);
+}
+
+.component-pill:active {
+  cursor: grabbing;
+  transform: scale(0.98);
+}
+
+.browser-frame {
+  margin: 0 auto;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: width 420ms var(--ease-out-expo);
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.5);
+}
+
+.browser-toolbar {
+  height: 36px;
+  padding: 0 14px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border-hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.window-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.window-dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--border-subtle);
+}
+
+.wireframe-block {
+  position: relative;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  transition: all 180ms var(--ease-out-quart);
+}
+
+.wireframe-block:hover,
+.wireframe-block.is-highlighted {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+/* 04. TEORÍA & SANDBOX */
+.theory-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+
+/* 05. CRONOGRAMA DE 8 SESIONES */
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.session-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  transition: border-color 180ms ease, transform 180ms var(--ease-out-quart);
+  overflow: hidden;
+}
+
+.session-card.is-current {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent-border);
+}
+
+.session-summary {
+  padding: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.session-summary:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+@media (max-width: 1120px) {
+  .xray-layout,
+  .grid-studio-layout,
+  .mockup-studio-layout,
+  .timeline-grid {
+    grid-template-columns: 1fr;
+  }
+  .theory-grid > * {
+    grid-column: span 12 !important;
+  }
+}
