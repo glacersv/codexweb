@@ -84,7 +84,7 @@
   top: 6px;
   right: 6px;
   background: var(--blueprint);
-  color: #09090B;
+  color: #FFFFFF;
 }
 
 .counter-box {
@@ -335,38 +335,29 @@
   gap: 20px;
 }
 
-/* 05. CRONOGRAMA DE 8 SESIONES */
-.timeline-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-}
-
-.session-card {
+.sim-stage {
   background: var(--bg-elevated);
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius-md);
-  transition: border-color 180ms ease, transform 180ms var(--ease-out-quart);
-  overflow: hidden;
+  padding: 14px;
+  min-height: 175px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  transition: display var(--dur-base) var(--ease-out-quart);
 }
 
-.session-card.is-current {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent-border);
+.sim-item {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
 }
 
-.session-summary {
-  padding: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.session-summary:hover {
-  background: rgba(255, 255, 255, 0.02);
-}
+/* 05. CRONOGRAMA DE 8 SESIONES — estilos en components.css */
 
 @media (max-width: 1120px) {
   .xray-layout,

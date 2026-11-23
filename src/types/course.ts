@@ -2,7 +2,7 @@
    COURSE.TS — CONTRATOS E INTERFACES TYPESCRIPT DEL AULA VIRTUAL
    ========================================================================== */
 
-export type ModuleId = 'rayosx' | 'grid' | 'mockup' | 'teoria' | 'ruta';
+export type ModuleId = 'clase' | 'rayosx' | 'grid' | 'mockup' | 'teoria' | 'ruta' | 'galeria';
 
 export type SessionStatus = 'done' | 'current' | 'upcoming';
 
@@ -13,6 +13,9 @@ export interface SessionPlan {
   title: string;
   status: SessionStatus;
   detail: string;
+  newIdea: string;
+  lab: 'rayosx' | 'grid' | 'mockup' | 'teoria' | 'galeria' | null;
+  file: string;
   blocks: {
     teoria: string;
     practica: string;

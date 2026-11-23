@@ -1,547 +1,627 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GRID/LAB — Estudio & Aula de Arquitectura Web</title>
+  <meta name="description" content="GRID/LAB: curso de desarrollo web para chicos de 12 a 16 años. Ocho sesiones, un archivo real cada clase. Martes y jueves, 08:00–09:30." />
+  <title>GRID/LAB — Clase de desarrollo web</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <!-- Arquitectura Modular CSS (Tokens + Base + Layout + Components + Labs) -->
-  <link rel="stylesheet" href="./src/styles/main.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./src/styles/main.css?v=2026-11-22g" />
 </head>
 <body>
-  <!-- Cuadrícula Arquitectónica de Fondo -->
-  <div class="studio-backdrop" aria-hidden="true"></div>
 
-  <!-- Contenedor de Notificaciones estilo Sonner (Emil Kowalski) -->
   <div id="sonner-toaster" aria-live="polite"></div>
 
-  <!-- Command Palette (Ctrl+K / Cmd+K) -->
-  <div class="cmdk-backdrop" id="cmdk-backdrop" role="dialog" aria-modal="true" aria-label="Paleta de Comandos">
+  <div class="cmdk-backdrop" id="cmdk-backdrop" role="dialog" aria-modal="true" aria-label="Buscar en el aula">
     <div class="cmdk-dialog">
       <div class="cmdk-input-wrap">
-        <span class="mono-tag" style="color:var(--accent); font-weight:600;">CMD</span>
-        <input type="text" id="cmdk-input" class="cmdk-input" placeholder="Buscar módulo, plantilla CSS Grid o acción..." autocomplete="off" />
+        <span class="mono-tag">BUSCAR</span>
+        <input type="text" id="cmdk-input" class="cmdk-input" placeholder="Escribe laboratorio, sesión o acción…" autocomplete="off" />
         <kbd>ESC</kbd>
       </div>
       <div class="cmdk-list" id="cmdk-list"></div>
     </div>
   </div>
 
-  <!-- ========================================================================
-       BARRA SUPERIOR DE ESTUDIO
-       ======================================================================== -->
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a href="#rayosx" id="brand-home-link" class="brand">
-        <div class="brand-mark" aria-hidden="true">
-          <span></span><span></span><span></span><span></span>
-        </div>
-        <div class="brand-text">
-          <div class="brand-title">
-            GRID/LAB
-            <span class="badge-cohort">MAR &amp; JUE · 08:00–09:30</span>
+  <div class="app-shell">
+    <div class="app-frame">
+
+      <!-- ===================== BARRA LATERAL ===================== -->
+      <aside class="sidebar">
+        <a href="#rayosx" id="brand-home-link" class="side-brand">
+          <span class="side-brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+          <span class="side-brand-text">
+            <b>GRID<span>/</span>LAB</b>
+            <small>Aula de desarrollo web</small>
+          </span>
+        </a>
+
+        <p class="side-label">Tu clase de hoy</p>
+        <nav class="main-nav" id="main-nav" aria-label="Secciones del aula">
+          <div class="nav-pill-indicator" id="nav-pill" aria-hidden="true"></div>
+          <button type="button" class="nav-item active" data-module="clase" aria-current="page">
+            <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+            <span class="nav-text">Clase de hoy</span>
+            <span class="nav-num">HOY</span>
+          </button>
+        </nav>
+
+        <p class="side-label">Laboratorios</p>
+        <nav class="main-nav" id="lab-nav" aria-label="Laboratorios">
+          <button type="button" class="nav-item" data-module="rayosx">
+            <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+            <span class="nav-text">Contar filas y columnas</span>
+            <span class="nav-num">01</span>
+          </button>
+          <button type="button" class="nav-item" data-module="grid">
+            <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 9v12"/></svg></span>
+            <span class="nav-text">Armar retículas</span>
+            <span class="nav-num">02</span>
+          </button>
+          <button type="button" class="nav-item" data-module="mockup">
+            <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h10M4 17h7"/><circle cx="18" cy="16" r="3"/></svg></span>
+            <span class="nav-text">Etiquetas con sentido</span>
+            <span class="nav-num">03</span>
+          </button>
+          <button type="button" class="nav-item" data-module="teoria">
+            <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3"/><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8v12M16 8v12"/></svg></span>
+            <span class="nav-text">La caja y el código</span>
+            <span class="nav-num">04</span>
+          </button>
+        </nav>
+
+        <p class="side-label">Curso</p>
+        <nav class="main-nav" id="course-nav" aria-label="Curso">
+          <button type="button" class="nav-item" data-module="ruta">
+            <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span>
+            <span class="nav-text">Plan de las 8 clases</span>
+            <span class="nav-num">05</span>
+          </button>
+          <button type="button" class="nav-item" data-module="galeria">
+            <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m3 17 5-4 4 3 4-4 5 5"/></svg></span>
+            <span class="nav-text">Galería de la clase</span>
+            <span class="nav-num">06</span>
+          </button>
+        </nav>
+
+        <div class="side-progress">
+          <div class="progress-ring" id="side-progress-ring"><b>03</b></div>
+          <div class="side-progress-text">
+            <b id="side-progress-title">2 de 8 completadas</b>
+            <small id="side-progress-sub">6 sesiones por delante</small>
           </div>
-          <span class="brand-meta">TypeScript + Modular CSS Architecture</span>
         </div>
-      </a>
 
-      <!-- Navegación con Píldora Deslizante -->
-      <nav class="nav-track" id="main-nav" aria-label="Módulos del Aula">
-        <div class="nav-pill-indicator" id="nav-pill"></div>
-        <button type="button" class="nav-item active" data-module="rayosx">
-          <span class="nav-num">01</span> Rayos X: Filas &amp; Columnas
-        </button>
-        <button type="button" class="nav-item" data-module="grid">
-          <span class="nav-num">02</span> Estudio CSS Grid
-        </button>
-        <button type="button" class="nav-item" data-module="mockup">
-          <span class="nav-num">03</span> Constructor Mockups
-        </button>
-        <button type="button" class="nav-item" data-module="teoria">
-          <span class="nav-num">04</span> Teoría &amp; Código Vivo
-        </button>
-        <button type="button" class="nav-item" data-module="ruta">
-          <span class="nav-num">05</span> Plan 4 Semanas &amp; Evaluación
-        </button>
-      </nav>
-
-      <!-- Acciones Derecha: Command Palette + Progreso + Tema -->
-      <div class="topbar-actions">
-        <button type="button" class="btn btn-sm" id="btn-open-cmdk" title="Abrir paleta rápida de comandos">
-          <span>Comandos</span>
-          <kbd>Ctrl K</kbd>
-        </button>
-        <div class="progress-widget" title="Progreso de las 8 sesiones del curso">
-          <span class="tabular" id="header-session-label">SESIÓN 03/08</span>
-          <div class="progress-bar-wrap">
-            <div class="progress-bar-fill" id="header-progress-bar" style="width: 25%"></div>
+        <div class="side-teacher">
+          <div class="side-avatar">TN</div>
+          <div class="side-teacher-text">
+            <b>[TU NOMBRE]</b>
+            <small>Martes y jueves · 08:00–09:30</small>
           </div>
+          <span class="side-status" title="En línea"></span>
         </div>
-        <button type="button" class="btn btn-icon" id="btn-theme-toggle" title="Alternar modo oscuro / papel técnico" aria-label="Cambiar tema">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="4"></circle>
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </header>
+      </aside>
 
-  <!-- ========================================================================
-       WORKSPACE PRINCIPAL
-       ======================================================================== -->
-  <main class="workspace">
+      <!-- ===================== CONTENIDO ===================== -->
+      <div class="app-content">
 
-    <!-- ======================================================================
-         MÓDULO 01: RAYOS X — DE CONTAR FILAS Y COLUMNAS A ARQUITECTURA REAL
-         ====================================================================== -->
-    <section id="mod-rayosx" class="module-panel active">
-      <div class="section-hero">
-        <div>
-          <div class="eyebrow">Módulo 01 · Puente de Semana 1 (Plantillas + IA) a Semana 2</div>
-          <h1 class="headline">Rayos X: <em>Anatomía</em> de Filas y Columnas</h1>
-          <p class="subheadline">
-            En las primeras 2 clases analizaron páginas hechas con plantillas e IA. Antes de escribir código, un desarrollador entrena la vista para detectar la retícula invisible que sostiene cualquier diseño.
-          </p>
-        </div>
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <button type="button" class="btn btn-sm" id="xray-case-btn-0">Caso 1: Landing IA</button>
-          <button type="button" class="btn btn-sm" id="xray-case-btn-1">Caso 2: Bento Portafolio</button>
-          <button type="button" class="btn btn-sm" id="xray-case-btn-2">Caso 3: Dashboard SaaS</button>
-        </div>
-      </div>
-
-      <div class="xray-layout">
-        <div class="panel">
-          <div class="panel-header">
-            <span class="panel-title">Inspector de Retícula</span>
-            <span class="mono-tag tabular" id="xray-case-tag">CASO #01</span>
+        <header class="app-header">
+          <div class="header-copy">
+            <div class="header-eyebrow"><span></span>Aula GRID/LAB · Martes y jueves</div>
+            <h1 id="page-title">Contar filas y columnas</h1>
+            <p id="page-subtitle">Antes de escribir CSS, miramos cómo está armada una página.</p>
           </div>
-          <div style="padding: 18px; display: flex; flex-direction: column; gap: 16px;">
-            <p style="font-size: 12.5px; color: var(--text-secondary);">
-              Observa la maqueta de la derecha y activa las guías para contar cuántas <strong>columnas verticales</strong> y <strong>filas horizontales</strong> estructuran este diseño:
-            </p>
-
-            <div class="counter-box">
-              <div>
-                <div style="font-size: 12px; font-weight: 600; color: var(--accent);">Columnas (Verticales)</div>
-                <div class="mono-tag">grid-template-columns</div>
-              </div>
-              <div class="stepper">
-                <button type="button" id="xray-col-dec" aria-label="Menos columnas">−</button>
-                <span class="tabular" id="xray-cols-val">2</span>
-                <button type="button" id="xray-col-inc" aria-label="Más columnas">+</button>
-              </div>
+          <div class="head-actions">
+            <span class="session-chip" id="header-session-label">SESIÓN 04 / 08</span>
+            <div class="head-progress" title="Progreso del curso">
+              <span class="progress-bar-wrap"><span class="progress-bar-fill" id="header-progress-bar"></span></span>
+              <span id="header-progress-count">3/8</span>
             </div>
-
-            <div class="counter-box">
-              <div>
-                <div style="font-size: 12px; font-weight: 600; color: var(--blueprint);">Filas (Horizontales)</div>
-                <div class="mono-tag">grid-template-rows</div>
-              </div>
-              <div class="stepper">
-                <button type="button" id="xray-row-dec" aria-label="Menos filas">−</button>
-                <span class="tabular" id="xray-rows-val">2</span>
-                <button type="button" id="xray-row-inc" aria-label="Más filas">+</button>
-              </div>
-            </div>
-
-            <div style="display:flex; flex-direction:column; gap:8px; padding-top:4px;">
-              <label style="display:flex; align-items:center; justify-content:space-between; font-size:12.5px; cursor:pointer;">
-                <span>Superponer líneas guía de conteo</span>
-                <input type="checkbox" id="xray-toggle-guides" checked style="accent-color: var(--accent); width:15px; height:15px;" />
-              </label>
-              <label style="display:flex; align-items:center; justify-content:space-between; font-size:12.5px; cursor:pointer;">
-                <span>Revelar etiquetas HTML5 ocultas</span>
-                <input type="checkbox" id="xray-toggle-tags" style="accent-color: var(--accent); width:15px; height:15px;" />
-              </label>
-            </div>
-
-            <button type="button" class="btn btn-primary" id="xray-verify-btn" style="width:100%;">
-              Comprobar mi conteo de filas y columnas
+            <button type="button" class="btn" id="btn-open-cmdk" title="Buscar en el aula">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              Buscar <kbd>Ctrl K</kbd>
             </button>
-
-            <div id="xray-feedback" style="padding:12px; border-radius:var(--radius-sm); border:1px solid var(--border-hairline); background:var(--bg-elevated); font-size:12px; color:var(--text-secondary);"></div>
-
-            <button type="button" class="btn" id="xray-send-grid-btn" style="width:100%;">
-              Abrir esta retícula en el Estudio CSS Grid →
+            <button type="button" class="btn btn-icon" id="btn-theme-toggle" title="Cambiar tema" aria-label="Cambiar tema">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+              </svg>
             </button>
+            <div class="header-avatar" title="[TU NOMBRE]">TN</div>
           </div>
-        </div>
+        </header>
 
-        <div class="xray-viewport">
-          <div class="ruler-top tabular">
-            <span>0px</span>
-            <span>25%</span>
-            <span>50%</span>
-            <span>75%</span>
-            <span>100% (1200px)</span>
-          </div>
-          <div class="xray-stage" id="xray-stage">
-            <div id="xray-mockup-content"></div>
-            <div class="xray-guides-layer" id="xray-guides-layer"></div>
-          </div>
-        </div>
-      </div>
-    </section>
+        <main class="workspace">
 
-    <!-- ======================================================================
-         MÓDULO 02: ESTUDIO CSS GRID (GENERADOR 2D + PROPIEDADES FR + PREVIEW)
-         ====================================================================== -->
-    <section id="mod-grid" class="module-panel">
-      <div class="section-hero">
-        <div>
-          <div class="eyebrow">Módulo 02 · Semana 2 (Clases 3 y 4)</div>
-          <h1 class="headline">Estudio <em>Interactivo</em> de CSS Grid</h1>
-          <p class="subheadline">
-            Configura las dimensiones de tu retícula, selecciona una etiqueta semántica y haz clic o arrastra sobre varias celdas para fusionarlas con <code>grid-column</code> y <code>grid-row</code>.
-          </p>
-        </div>
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <button type="button" class="btn btn-sm" id="preset-holygrail">Preset: Holy Grail</button>
-          <button type="button" class="btn btn-sm" id="preset-bento">Preset: Bento Editorial</button>
-          <button type="button" class="btn btn-sm" id="preset-dashboard">Preset: App Dashboard</button>
-          <button type="button" class="btn btn-sm" id="preset-landing">Preset: Landing Page</button>
-          <button type="button" class="btn btn-sm" id="preset-clear" style="color:var(--signal-err);">Limpiar</button>
-        </div>
-      </div>
+          <!-- ========== LAB 01: CONTAR FILAS Y COLUMNAS ========== -->
+          <section id="mod-clase" class="module-panel active" aria-labelledby="title-clase">
+            <div id="class-lesson" class="class-lesson-root"></div>
+          </section>
 
-      <div class="grid-studio-layout">
-        <div style="display:flex; flex-direction:column; gap:16px;">
-          <div class="panel">
-            <div class="panel-header">
-              <span class="panel-title">1. Parámetros del Contenedor</span>
-              <span class="mono-tag">display: grid</span>
-            </div>
-            <div style="padding:16px; display:flex; flex-direction:column; gap:14px;">
-              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;">
-                <div>
-                  <label class="mono-tag" for="studio-cols" style="display:block; margin-bottom:4px;">COLUMNAS</label>
-                  <input type="number" id="studio-cols" min="1" max="8" value="4"
-                         style="width:100%; padding:7px; border-radius:var(--radius-sm); background:var(--bg-elevated); border:1px solid var(--border-subtle); color:var(--text-primary); font-family:var(--font-mono); font-weight:600; text-align:center;" />
-                </div>
-                <div>
-                  <label class="mono-tag" for="studio-rows" style="display:block; margin-bottom:4px;">FILAS</label>
-                  <input type="number" id="studio-rows" min="1" max="8" value="4"
-                         style="width:100%; padding:7px; border-radius:var(--radius-sm); background:var(--bg-elevated); border:1px solid var(--border-subtle); color:var(--text-primary); font-family:var(--font-mono); font-weight:600; text-align:center;" />
-                </div>
-                <div>
-                  <label class="mono-tag" for="studio-gap" style="display:block; margin-bottom:4px;">GAP (PX)</label>
-                  <input type="number" id="studio-gap" min="0" max="40" step="2" value="12"
-                         style="width:100%; padding:7px; border-radius:var(--radius-sm); background:var(--bg-elevated); border:1px solid var(--border-subtle); color:var(--text-primary); font-family:var(--font-mono); font-weight:600; text-align:center;" />
-                </div>
-              </div>
-
+          <section id="mod-rayosx" class="module-panel" aria-labelledby="title-rayosx">
+            <div class="section-hero">
               <div>
-                <label class="mono-tag" for="studio-col-template" style="display:block; margin-bottom:4px;">DEFINICIÓN DE COLUMNAS (TRACKS)</label>
-                <select id="studio-col-template"
-                        style="width:100%; padding:8px 10px; border-radius:var(--radius-sm); background:var(--bg-elevated); border:1px solid var(--border-subtle); color:var(--text-primary); font-family:var(--font-mono); font-size:11.5px;">
-                  <option value="equal">Iguales — repeat(N, 1fr)</option>
-                  <option value="sidebar-left">Sidebar Izq — 220px repeat(N-1, 1fr)</option>
-                  <option value="asymmetric">Asimétrico — 2fr 1fr ...</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="panel">
-            <div class="panel-header">
-              <span class="panel-title">2. Pincel de Bloques Semánticos</span>
-              <span class="mono-tag">HTML5</span>
-            </div>
-            <div style="padding:16px;">
-              <p style="font-size:12px; color:var(--text-secondary); margin-bottom:12px;">
-                Elige una etiqueta y pinta celdas (si pintas celdas vecinas del mismo tipo formando un rectángulo, se fusionan automáticamente):
-              </p>
-              <div class="semantic-palette" id="studio-brush-list"></div>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex; flex-direction:column; gap:16px;">
-          <div class="panel">
-            <div class="panel-header">
-              <div style="display:flex; align-items:center; gap:10px;">
-                <span class="panel-title">Lienzo de Retícula 2D</span>
-                <span class="mono-tag tabular" id="studio-live-declaration">grid-template-columns: repeat(4, 1fr);</span>
-              </div>
-              <div style="display:flex; gap:6px;">
-                <button type="button" class="btn btn-sm btn-primary" id="btn-grid-mode-cells">Vista Celdas (F:C)</button>
-                <button type="button" class="btn btn-sm" id="btn-grid-mode-preview">Vista Bloques Fusionados</button>
-              </div>
-            </div>
-            <div style="padding:16px;">
-              <div id="studio-grid-canvas" class="grid-canvas-container"></div>
-            </div>
-          </div>
-
-          <div class="panel">
-            <div class="panel-header">
-              <div style="display:flex; gap:6px;">
-                <button type="button" class="btn btn-sm btn-primary" id="btn-code-htmlcss">Archivo index.html Completo</button>
-                <button type="button" class="btn btn-sm" id="btn-code-css">Solo Reglas CSS Grid</button>
-              </div>
-              <div style="display:flex; gap:8px;">
-                <button type="button" class="btn btn-sm" id="btn-copy-grid-code">Copiar Código</button>
-                <button type="button" class="btn btn-sm btn-primary" id="btn-download-grid-html">Descargar plantilla .html</button>
-              </div>
-            </div>
-            <pre class="code-pane"><code id="studio-code-output"></code></pre>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         MÓDULO 03: CONSTRUCTOR DE MOCKUPS & TRADUCTOR DOM SEMÁNTICO
-         ====================================================================== -->
-    <section id="mod-mockup" class="module-panel">
-      <div class="section-hero">
-        <div>
-          <div class="eyebrow">Módulo 03 · Semana 3 (Clases 5 y 6)</div>
-          <h1 class="headline">Arquitectura de <em>Mockups</em> &amp; Árbol HTML5</h1>
-          <p class="subheadline">
-            Arrastra secciones al navegador o agrégalas con un clic. Cambia el ancho del viewport (Escritorio, Tablet, Móvil) y observa en tiempo real cómo cada bloque visual construye el código semántico.
-          </p>
-        </div>
-        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-          <div style="display:inline-flex; background:var(--bg-surface); padding:3px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
-            <button type="button" class="btn btn-sm" id="vp-desktop">Desktop</button>
-            <button type="button" class="btn btn-sm" id="vp-tablet">Tablet</button>
-            <button type="button" class="btn btn-sm" id="vp-mobile">Mobile</button>
-          </div>
-          <button type="button" class="btn btn-sm" id="btn-clear-mockup">Vaciar</button>
-          <button type="button" class="btn btn-sm btn-primary" id="btn-export-mockup">Exportar Mockup .html</button>
-        </div>
-      </div>
-
-      <div class="mockup-studio-layout">
-        <div class="panel">
-          <div class="panel-header">
-            <span class="panel-title">Biblioteca de Bloques</span>
-            <span class="mono-tag">DRAG &amp; DROP</span>
-          </div>
-          <div style="padding:14px; display:flex; flex-direction:column; gap:8px;" id="mockup-library"></div>
-        </div>
-
-        <div style="overflow-x:auto;">
-          <div class="browser-frame" id="mockup-browser-frame" style="width:100%;">
-            <div class="browser-toolbar">
-              <div class="window-dots"><span></span><span></span><span></span></div>
-              <span class="mono-tag tabular" id="mockup-viewport-label">1280px · Desktop</span>
-              <span class="mono-tag tabular" id="mockup-block-counter">4 nodos</span>
-            </div>
-            <div id="mockup-canvas-drop"
-                 style="padding:16px; min-height:480px; display:flex; flex-direction:column; gap:10px; transition:background 0.2s;">
-            </div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-header">
-            <span class="panel-title">Código HTML5 Semántico</span>
-            <button type="button" class="btn btn-sm" id="btn-copy-mockup">Copiar</button>
-          </div>
-          <div style="padding:10px 14px; border-bottom:1px solid var(--border-hairline); font-size:11.5px; color:var(--text-secondary);">
-            Árbol DOM generado con hoja de estilos externa vinculada:
-          </div>
-          <pre class="code-pane" style="max-height:470px;"><code id="mockup-code-output"></code></pre>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         MÓDULO 04: TEORÍA INTERACTIVA & SANDBOX DE CÓDIGO EN VIVO
-         ====================================================================== -->
-    <section id="mod-teoria" class="module-panel">
-      <div class="section-hero">
-        <div>
-          <div class="eyebrow">Módulo 04 · Fundamentos de Ingeniería Frontend</div>
-          <h1 class="headline">Teoría Visual &amp; <em>Laboratorio</em> de Código</h1>
-          <p class="subheadline">
-            Experimenta con las leyes físicas del navegador: el Modelo de Caja (Box Model), la diferencia entre 1D (Flexbox) y 2D (CSS Grid), y edita código real con vista previa instantánea.
-          </p>
-        </div>
-      </div>
-
-      <div class="theory-grid">
-        <div class="panel" style="grid-column: span 6;">
-          <div class="panel-header">
-            <span class="panel-title">01. El Modelo de Caja (CSS Box Model)</span>
-            <span class="mono-tag">box-sizing: border-box</span>
-          </div>
-          <div style="padding:18px; display:grid; grid-template-columns: 1fr 1fr; gap:16px; align-items:center;">
-            <div style="display:flex; flex-direction:column; gap:12px;">
-              <div>
-                <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
-                  <span>Margin (Espacio Exterior)</span>
-                  <span class="mono-tag tabular" id="bm-m-label">20px</span>
+                <div class="eyebrow">Sesión 04 · Retículas</div>
+                <h1 class="headline" id="title-rayosx">Tres tarjetas en fila, sin copiar y pegar</h1>
+                <p class="subheadline">
+                  El navegador acomoda cajas por filas y columnas. Contamos primero y escribimos el CSS después.
+                </p>
+                <div class="hero-meta">
+                  <span class="meta-chip"><b>90 min</b> · una idea</span>
+                  <span class="meta-chip">3 casos para mirar</span>
+                  <span class="meta-chip">Entregable: <b>reticula.html</b></span>
                 </div>
-                <input type="range" id="bm-m-slider" min="0" max="44" value="20" style="width:100%; accent-color:var(--accent);" />
               </div>
-              <div>
-                <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
-                  <span>Border (Borde Físico)</span>
-                  <span class="mono-tag tabular" id="bm-b-label">2px</span>
-                </div>
-                <input type="range" id="bm-b-slider" min="0" max="12" value="2" style="width:100%; accent-color:var(--signal-warn);" />
+              <div class="row">
+                <button type="button" class="btn btn-sm" id="xray-case-btn-0">Caso 1</button>
+                <button type="button" class="btn btn-sm" id="xray-case-btn-1">Caso 2</button>
+                <button type="button" class="btn btn-sm" id="xray-case-btn-2">Caso 3</button>
               </div>
-              <div>
-                <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
-                  <span>Padding (Aire Interior)</span>
-                  <span class="mono-tag tabular" id="bm-p-label">20px</span>
-                </div>
-                <input type="range" id="bm-p-slider" min="0" max="44" value="20" style="width:100%; accent-color:var(--blueprint);" />
-              </div>
-              <div class="mono-tag tabular" id="bm-computed-total" style="padding:8px; background:var(--bg-elevated); border-radius:var(--radius-xs);"></div>
             </div>
 
-            <div style="display:flex; align-items:center; justify-content:center; background:var(--bg-elevated); border-radius:var(--radius-md); min-height:220px; padding:12px; border:1px solid var(--border-hairline);">
-              <div id="bm-outer-margin" style="border:1.5px dashed var(--accent); background:var(--accent-soft); padding:20px; border-radius:var(--radius-sm); position:relative; transition:all 0.15s;">
-                <span class="mono-tag" style="position:absolute; top:2px; left:6px; font-size:9px; color:var(--accent);">margin</span>
-                <div id="bm-mid-padding" style="border:2px solid var(--signal-warn); background:var(--blueprint-soft); padding:20px; border-radius:4px; position:relative; transition:all 0.15s;">
-                  <span class="mono-tag" style="position:absolute; top:2px; left:6px; font-size:9px; color:var(--blueprint);">padding</span>
-                  <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); padding:12px 18px; border-radius:3px; font-family:var(--font-mono); font-size:11px; text-align:center;">
-                    CONTENT
+            <div class="xray-layout">
+              <div class="panel">
+                <div class="panel-header">
+                  <span class="panel-title">Inspector de retícula</span>
+                  <span class="mono-tag tabular" id="xray-case-tag">CASO #01</span>
+                </div>
+                <div class="stack-16 pad">
+                  <p class="hint">
+                    Mira la maqueta de la derecha. ¿Cuántas <strong>columnas</strong> y cuántas <strong>filas</strong> tiene?
+                  </p>
+
+                  <div class="counter-box">
+                    <div>
+                      <div class="accent-text" style="font-size:12px;">Columnas</div>
+                      <div class="mono-tag">grid-template-columns</div>
+                    </div>
+                    <div class="stepper">
+                      <button type="button" id="xray-col-dec" aria-label="Menos columnas">−</button>
+                      <span class="tabular" id="xray-cols-val">2</span>
+                      <button type="button" id="xray-col-inc" aria-label="Más columnas">+</button>
+                    </div>
+                  </div>
+
+                  <div class="counter-box">
+                    <div>
+                      <div class="blue-text" style="font-size:12px;">Filas</div>
+                      <div class="mono-tag">grid-template-rows</div>
+                    </div>
+                    <div class="stepper">
+                      <button type="button" id="xray-row-dec" aria-label="Menos filas">−</button>
+                      <span class="tabular" id="xray-rows-val">2</span>
+                      <button type="button" id="xray-row-inc" aria-label="Más filas">+</button>
+                    </div>
+                  </div>
+
+                  <div class="col-sm">
+                    <label class="check-row">
+                      <span>Mostrar líneas guía</span>
+                      <input type="checkbox" id="xray-toggle-guides" checked />
+                    </label>
+                    <label class="check-row">
+                      <span>Mostrar etiquetas HTML</span>
+                      <input type="checkbox" id="xray-toggle-tags" />
+                    </label>
+                  </div>
+
+                  <button type="button" class="btn btn-primary w-full" id="xray-verify-btn">
+                    Comprobar mi conteo
+                  </button>
+                  <div id="xray-feedback" class="mini-note"></div>
+                  <button type="button" class="btn w-full" id="xray-send-grid-btn">
+                    Llevar esta retícula al laboratorio →
+                  </button>
+                </div>
+              </div>
+
+              <div class="xray-viewport">
+                <div class="ruler-top tabular">
+                  <span>0px</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+                </div>
+                <div class="xray-stage" id="xray-stage">
+                  <div id="xray-mockup-content"></div>
+                  <div class="xray-guides-layer" id="xray-guides-layer"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== LAB 02: ESTUDIO CSS GRID ========== -->
+          <section id="mod-grid" class="module-panel" aria-labelledby="title-grid">
+            <div class="section-hero">
+              <div>
+                <div class="eyebrow">Sesión 04 · Laboratorio</div>
+                <h1 class="headline" id="title-grid">Arma tu retícula con celdas</h1>
+                <p class="subheadline">
+                  Elige cuántas columnas y filas quieres. Luego pinta celdas con una etiqueta: las celdas vecinas se juntan solas.
+                </p>
+                <div class="hero-meta">
+                  <span class="meta-chip"><b>CSS Grid</b></span>
+                  <span class="meta-chip">4 ejemplos listos</span>
+                  <span class="meta-chip">Descarga tu <b>.html</b></span>
+                </div>
+              </div>
+              <div class="row">
+                <button type="button" class="btn btn-sm" id="preset-holygrail">Preset: clásico</button>
+                <button type="button" class="btn btn-sm" id="preset-bento">Preset: tarjetas</button>
+                <button type="button" class="btn btn-sm" id="preset-dashboard">Preset: panel</button>
+                <button type="button" class="btn btn-sm" id="preset-landing">Preset: página</button>
+                <button type="button" class="btn btn-sm err-text" id="preset-clear">Limpiar</button>
+              </div>
+            </div>
+
+            <div class="grid-studio-layout">
+              <div class="stack-16">
+                <div class="panel">
+                  <div class="panel-header">
+                    <span class="panel-title">1. El contenedor</span>
+                    <span class="mono-tag">display: grid</span>
+                  </div>
+                  <div class="stack-16 pad">
+                    <div class="three-col">
+                      <div>
+                        <label class="field-label" for="studio-cols">Columnas</label>
+                        <input type="number" class="num-input" id="studio-cols" min="1" max="8" value="4" />
+                      </div>
+                      <div>
+                        <label class="field-label" for="studio-rows">Filas</label>
+                        <input type="number" class="num-input" id="studio-rows" min="1" max="8" value="4" />
+                      </div>
+                      <div>
+                        <label class="field-label" for="studio-gap">Separación</label>
+                        <input type="number" class="num-input" id="studio-gap" min="0" max="40" step="2" value="12" />
+                      </div>
+                    </div>
+                    <div>
+                      <label class="field-label" for="studio-col-template">Tipo de columnas</label>
+                      <select class="select-input" id="studio-col-template">
+                        <option value="equal">Iguales — repeat(N, 1fr)</option>
+                        <option value="sidebar-left">Con barra lateral — 220px + 1fr</option>
+                        <option value="asymmetric">Desiguales — 2fr 1fr…</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel">
+                  <div class="panel-header">
+                    <span class="panel-title">2. Pincel de etiquetas</span>
+                    <span class="mono-tag">HTML5</span>
+                  </div>
+                  <div class="pad">
+                    <p class="hint" style="margin-bottom:12px;">
+                      Elige una etiqueta y pinta celdas. Si pintas varias seguidas, se unen en un bloque.
+                    </p>
+                    <div class="semantic-palette" id="studio-brush-list"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stack-16">
+                <div class="panel">
+                  <div class="panel-header">
+                    <div class="col-sm">
+                      <span class="panel-title">Lienzo de retícula</span>
+                      <span class="mono-tag tabular" id="studio-live-declaration">grid-template-columns: repeat(4, 1fr);</span>
+                    </div>
+                    <div class="row">
+                      <button type="button" class="btn btn-sm btn-primary" id="btn-grid-mode-cells">Celdas</button>
+                      <button type="button" class="btn btn-sm" id="btn-grid-mode-preview">Bloques</button>
+                    </div>
+                  </div>
+                  <div class="pad">
+                    <div id="studio-grid-canvas" class="grid-canvas-container"></div>
+                  </div>
+                </div>
+
+                <div class="panel">
+                  <div class="panel-header">
+                    <div class="row">
+                      <button type="button" class="btn btn-sm btn-primary" id="btn-code-htmlcss">index.html completo</button>
+                      <button type="button" class="btn btn-sm" id="btn-code-css">Solo el CSS</button>
+                    </div>
+                    <div class="row">
+                      <button type="button" class="btn btn-sm" id="btn-copy-grid-code">Copiar</button>
+                      <button type="button" class="btn btn-sm btn-primary" id="btn-download-grid-html">Descargar .html</button>
+                    </div>
+                  </div>
+                  <pre class="code-pane"><code id="studio-code-output"></code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== LAB 03: ETIQUETAS CON SENTIDO ========== -->
+          <section id="mod-mockup" class="module-panel" aria-labelledby="title-mockup">
+            <div class="section-hero">
+              <div>
+                <div class="eyebrow">Sesión 02 · HTML</div>
+                <h1 class="headline" id="title-mockup">Etiquetas con sentido</h1>
+                <p class="subheadline">
+                  Arrastra bloques al navegador y mira cómo se escribe el HTML. Cambia el ancho de pantalla para probar tu página.
+                </p>
+                <div class="hero-meta">
+                  <span class="meta-chip"><b>HTML5</b> semántico</span>
+                  <span class="meta-chip">Escritorio · Tablet · Móvil</span>
+                  <span class="meta-chip">Exporta tu maqueta</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="row" role="group" aria-label="Ancho de pantalla">
+                  <button type="button" class="btn btn-sm" id="vp-desktop">Escritorio</button>
+                  <button type="button" class="btn btn-sm" id="vp-tablet">Tablet</button>
+                  <button type="button" class="btn btn-sm" id="vp-mobile">Móvil</button>
+                </div>
+                <button type="button" class="btn btn-sm" id="btn-clear-mockup">Vaciar</button>
+                <button type="button" class="btn btn-sm btn-primary" id="btn-export-mockup">Exportar .html</button>
+              </div>
+            </div>
+
+            <div class="mockup-studio-layout">
+              <div class="panel">
+                <div class="panel-header">
+                  <span class="panel-title">Bloques disponibles</span>
+                  <span class="mono-tag">ARRASTRA O HAZ CLIC</span>
+                </div>
+                <div class="col-sm pad" id="mockup-library"></div>
+              </div>
+
+              <div style="overflow-x:auto;">
+                <div class="browser-frame" id="mockup-browser-frame" style="width:100%;">
+                  <div class="browser-toolbar">
+                    <div class="window-dots"><span></span><span></span><span></span></div>
+                    <span class="mono-tag tabular" id="mockup-viewport-label">1280px · Escritorio</span>
+                    <span class="mono-tag tabular" id="mockup-block-counter">4 bloques</span>
+                  </div>
+                  <div id="mockup-canvas-drop" style="padding:16px; min-height:480px; display:flex; flex-direction:column; gap:10px; transition:background 0.2s;"></div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel-header">
+                  <span class="panel-title">Código HTML</span>
+                  <button type="button" class="btn btn-sm" id="btn-copy-mockup">Copiar</button>
+                </div>
+                <div class="mini-note" style="border-radius:0; border-left:0; border-right:0;">
+                  Árbol de etiquetas generado con su hoja de estilos.
+                </div>
+                <pre class="code-pane" style="max-height:470px;"><code id="mockup-code-output"></code></pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== LAB 04: CAJA Y CÓDIGO EN VIVO ========== -->
+          <section id="mod-teoria" class="module-panel" aria-labelledby="title-teoria">
+            <div class="section-hero">
+              <div>
+                <div class="eyebrow">Sesión 03 · CSS</div>
+                <h1 class="headline" id="title-teoria">Toda caja tiene cuatro capas</h1>
+                <p class="subheadline">
+                  Mueve los controles y observa qué cambia. Después escribe tu propio código y mira el resultado al instante.
+                </p>
+                <div class="hero-meta">
+                  <span class="meta-chip"><b>Box model</b> en vivo</span>
+                  <span class="meta-chip">Flex vs Grid</span>
+                  <span class="meta-chip">Editor con vista previa</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="theory-grid">
+              <div class="panel" style="grid-column:span 6;">
+                <div class="panel-header">
+                  <span class="panel-title">1. El modelo de caja</span>
+                  <span class="mono-tag">box-sizing: border-box</span>
+                </div>
+                <div class="pad-lg" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:center;">
+                  <div class="col">
+                    <div>
+                      <div class="row-between" style="font-size:12px;">
+                        <span>Margin · espacio fuera</span><span class="mono-tag tabular" id="bm-m-label">20px</span>
+                      </div>
+                      <input type="range" id="bm-m-slider" class="w-full" min="0" max="44" value="20" />
+                    </div>
+                    <div>
+                      <div class="row-between" style="font-size:12px;">
+                        <span>Border · borde</span><span class="mono-tag tabular" id="bm-b-label">2px</span>
+                      </div>
+                      <input type="range" id="bm-b-slider" class="w-full" min="0" max="12" value="2" />
+                    </div>
+                    <div>
+                      <div class="row-between" style="font-size:12px;">
+                        <span>Padding · aire dentro</span><span class="mono-tag tabular" id="bm-p-label">20px</span>
+                      </div>
+                      <input type="range" id="bm-p-slider" class="w-full" min="0" max="44" value="20" />
+                    </div>
+                    <div class="mono-tag tabular mini-note" id="bm-computed-total"></div>
+                  </div>
+
+                  <div style="display:flex; align-items:center; justify-content:center; background:var(--bg-elevated); border:1px solid var(--border-hairline); border-radius:var(--radius-md); min-height:220px; padding:12px;">
+                    <div id="bm-outer-margin" style="border:1.5px dashed var(--accent); background:var(--accent-soft); padding:20px; border-radius:var(--radius-sm); position:relative; transition:all 0.15s;">
+                      <span class="mono-tag" style="position:absolute; top:2px; left:6px; font-size:9px; color:var(--accent);">margin</span>
+                      <div id="bm-mid-padding" style="border:2px solid var(--signal-warn); background:var(--blueprint-soft); padding:20px; border-radius:4px; position:relative; transition:all 0.15s;">
+                        <span class="mono-tag" style="position:absolute; top:2px; left:6px; font-size:9px; color:var(--blueprint);">padding</span>
+                        <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); padding:12px 18px; border-radius:3px; font-family:var(--font-mono); font-size:11px; text-align:center;">CONTENIDO</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel" style="grid-column:span 6;">
+                <div class="panel-header">
+                  <span class="panel-title">2. Flex (1D) o Grid (2D)</span>
+                  <div class="row">
+                    <button type="button" class="btn btn-sm" id="sim-btn-flex">Flex</button>
+                    <button type="button" class="btn btn-sm" id="sim-btn-grid3">Grid 3</button>
+                    <button type="button" class="btn btn-sm" id="sim-btn-bento">Grid mixto</button>
+                  </div>
+                </div>
+                <div class="stack-16 pad-lg">
+                  <div class="mono-tag accent-text" id="sim-css-rule">
+                    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+                  </div>
+                  <div id="sim-stage" class="sim-stage">
+                    <div class="sim-item">01 · Nodo A</div>
+                    <div class="sim-item">02 · Nodo B</div>
+                    <div class="sim-item">03 · Nodo C</div>
+                    <div class="sim-item">04 · Nodo D</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel" style="grid-column:span 12;">
+                <div class="panel-header">
+                  <span class="panel-title">3. Escribe y prueba</span>
+                  <button type="button" class="btn btn-sm" id="btn-reset-sandbox">Volver al ejemplo</button>
+                </div>
+                <div class="sandbox-grid">
+                  <div style="border-right:1px solid var(--border-hairline); display:flex; flex-direction:column;">
+                    <div class="sandbox-bar">EDITOR HTML + CSS</div>
+                    <textarea id="live-sandbox-editor" class="sandbox-editor" spellcheck="false"></textarea>
+                  </div>
+                  <div style="display:flex; flex-direction:column; background:var(--bg-elevated);">
+                    <div class="sandbox-bar">RESULTADO</div>
+                    <iframe id="live-sandbox-preview" class="sandbox-preview" title="Vista previa en vivo"></iframe>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </section>
 
-        <div class="panel" style="grid-column: span 6;">
-          <div class="panel-header">
-            <span class="panel-title">02. Simulador en Vivo: Flexbox (1D) vs Grid (2D)</span>
-            <div style="display:flex; gap:6px;">
-              <button type="button" class="btn btn-sm" id="sim-btn-flex">Flex: space-between</button>
-              <button type="button" class="btn btn-sm" id="sim-btn-grid3">Grid: 3 Columnas</button>
-              <button type="button" class="btn btn-sm" id="sim-btn-bento">Grid: Span 2D</button>
-            </div>
-          </div>
-          <div style="padding:18px; display:flex; flex-direction:column; gap:12px;">
-            <div class="mono-tag" id="sim-css-rule" style="color:var(--accent);">
-              display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; (2D)
-            </div>
-            <div id="sim-stage" style="background:var(--bg-elevated); border:1px solid var(--border-hairline); border-radius:var(--radius-md); padding:14px; min-height:175px; display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; transition:all 0.3s var(--ease-out-quart);">
-              <div class="sim-item" style="background:var(--bg-surface); border:1px solid var(--border-subtle); padding:14px; border-radius:var(--radius-sm); font-family:var(--font-mono); font-size:11px;">01 · Nodo A</div>
-              <div class="sim-item" style="background:var(--bg-surface); border:1px solid var(--border-subtle); padding:14px; border-radius:var(--radius-sm); font-family:var(--font-mono); font-size:11px;">02 · Nodo B</div>
-              <div class="sim-item" style="background:var(--bg-surface); border:1px solid var(--border-subtle); padding:14px; border-radius:var(--radius-sm); font-family:var(--font-mono); font-size:11px;">03 · Nodo C</div>
-              <div class="sim-item" style="background:var(--bg-surface); border:1px solid var(--border-subtle); padding:14px; border-radius:var(--radius-sm); font-family:var(--font-mono); font-size:11px;">04 · Nodo D</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel" style="grid-column: span 12;">
-          <div class="panel-header">
-            <span class="panel-title">03. Sandbox de Programación en Vivo (Edita el código y observa el resultado al instante)</span>
-            <button type="button" class="btn btn-sm" id="btn-reset-sandbox">Restaurar Ejemplo Base</button>
-          </div>
-          <div style="display:grid; grid-template-columns: 1fr 1fr; min-height:320px;">
-            <div style="border-right:1px solid var(--border-hairline); display:flex; flex-direction:column;">
-              <div style="padding:8px 14px; background:var(--bg-elevated); font-family:var(--font-mono); font-size:11px; color:var(--text-muted); border-bottom:1px solid var(--border-hairline);">
-                EDITOR HTML + CSS
+          <!-- ========== LAB 05: LAS 8 SESIONES Y EVALUACIÓN ========== -->
+          <section id="mod-ruta" class="module-panel" aria-labelledby="title-ruta">
+            <div class="section-hero">
+              <div>
+                <div class="eyebrow">Programa del curso</div>
+                <h1 class="headline" id="title-ruta">Ocho sesiones, ocho archivos</h1>
+                <p class="subheadline">
+                  Martes y jueves, 08:00–09:30. Cada clase termina con un archivo que puedes abrir y mostrar.
+                </p>
+                <div class="hero-meta">
+                  <span class="meta-chip"><b>4 semanas</b></span>
+                  <span class="meta-chip">8 sesiones de 90 min</span>
+                  <span class="meta-chip">Un entregable por clase</span>
+                </div>
               </div>
-              <textarea id="live-sandbox-editor" spellcheck="false"
-                        style="flex:1; width:100%; background:#070709; color:#F4F4F6; border:none; padding:16px; font-family:var(--font-mono); font-size:12px; line-height:1.6; resize:none; outline:none;"></textarea>
-            </div>
-            <div style="display:flex; flex-direction:column; background:var(--bg-elevated);">
-              <div style="padding:8px 14px; background:var(--bg-surface); font-family:var(--font-mono); font-size:11px; color:var(--text-muted); border-bottom:1px solid var(--border-hairline);">
-                RESULTADO EN NAVEGADOR
-              </div>
-              <iframe id="live-sandbox-preview" title="Vista previa en vivo" style="flex:1; width:100%; border:none; background:#fff;"></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         MÓDULO 05: PLAN DE 4 SEMANAS (MAR/JUE 8:00-9:30) & EVALUACIÓN DE CÓDIGO
-         ====================================================================== -->
-    <section id="mod-ruta" class="module-panel">
-      <div class="section-hero">
-        <div>
-          <div class="eyebrow">Módulo 05 · Programa Académico &amp; Validador de Competencias</div>
-          <h1 class="headline">Cronograma <em>4 Semanas</em> &amp; Evaluación Práctica</h1>
-          <p class="subheadline">
-            8 sesiones de 90 minutos (Martes y Jueves de 8:00 a 9:30 AM). Incluye el validador automático de código para evaluar en vivo si el alumno domina la construcción de retículas.
-          </p>
-        </div>
-      </div>
-
-      <div class="timeline-grid" id="course-timeline-grid" style="margin-bottom:28px;"></div>
-
-      <div class="theory-grid">
-        <div class="panel" style="grid-column: span 7;">
-          <div class="panel-header">
-            <span class="panel-title">Reto Evaluable de Código: Construye la Retícula Solicitada</span>
-            <span class="badge-cohort" id="challenge-status-badge">PENDIENTE</span>
-          </div>
-          <div style="padding:18px; display:flex; flex-direction:column; gap:14px;">
-            <div style="padding:12px 14px; border-radius:var(--radius-sm); background:var(--bg-elevated); border:1px solid var(--border-subtle); font-size:12.5px;">
-              <strong>Instrucción del Examen Práctico:</strong> Escribe las reglas CSS para que <code>.layout</code> sea un contenedor <strong>CSS Grid</strong> con <strong>3 columnas</strong> (ej. <code>repeat(3, 1fr)</code>), un <strong>gap de 16px</strong>, y haz que <code>header</code> ocupe desde la línea de columna 1 hasta la 4 (<code>grid-column: 1 / 4</code> o <code>span 3</code>).
             </div>
 
-            <textarea id="eval-code-input" rows="8" spellcheck="false"
-                      style="width:100%; background:#070709; color:#E4E4E7; border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:14px; font-family:var(--font-mono); font-size:12px; line-height:1.6;">.layout {
+            <div class="timeline-grid" id="course-timeline-grid" style="margin-bottom:28px;"></div>
+
+            <div class="theory-grid">
+              <div class="panel" style="grid-column:span 7;">
+                <div class="panel-header">
+                  <span class="panel-title">Reto: construye la retícula</span>
+                  <span class="badge-cohort" id="challenge-status-badge">PENDIENTE</span>
+                </div>
+                <div class="stack-16 pad-lg">
+                  <div class="mini-note">
+                    <strong>Escríbe el CSS:</strong> <code>.layout</code> debe ser Grid con <strong>3 columnas</strong>,
+                    <strong>16px</strong> de separación y <code>header</code> debe ocupar las 3 columnas.
+                  </div>
+                  <textarea id="eval-code-input" class="code-area" rows="8" spellcheck="false">.layout {
   display: grid;
-  /* Escribe aquí tus columnas y gap */
-  
+  /* Escribe aquí tus columnas y la separación */
+
 }
 
 header {
-  /* Expande el header en las 3 columnas */
-  
+  /* Haz que ocupe las 3 columnas */
+
 }</textarea>
+                  <div class="row-between">
+                    <button type="button" class="btn btn-primary" id="btn-eval-code">Comprobar mi código</button>
+                    <button type="button" class="btn btn-sm" id="btn-fill-solution">Ver la solución</button>
+                  </div>
+                  <div id="eval-code-results" class="three-col"></div>
+                </div>
+              </div>
 
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-              <button type="button" class="btn btn-primary" id="btn-eval-code">Ejecutar Autocorrector de Código</button>
-              <button type="button" class="btn btn-sm" id="btn-fill-solution">Ver solución de referencia</button>
+              <div class="panel" style="grid-column:span 5;">
+                <div class="panel-header">
+                  <span class="panel-title">Lista para publicar</span>
+                  <span class="mono-tag tabular accent-text" id="rubric-total-badge">45 / 100 PTS</span>
+                </div>
+                <div class="stack-16 pad-lg" id="rubric-checklist"></div>
+              </div>
+
+              <div class="panel" style="grid-column:span 12;">
+                <div class="panel-header">
+                  <span class="panel-title">Comprueba lo que sabes</span>
+                  <div class="row">
+                    <span class="mono-tag tabular" id="quiz-progress-label">0 / 6 respondidas</span>
+                    <button type="button" class="btn btn-sm" id="btn-reset-quiz">Empezar de nuevo</button>
+                  </div>
+                </div>
+                <div id="course-quiz-grid" class="two-col pad-lg"></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== GALERÍA DE LA CLASE ========== -->
+          <section id="mod-galeria" class="module-panel" aria-labelledby="title-galeria">
+            <div class="gallery-intro">
+              <div class="eyebrow">Trabajos del grupo</div>
+              <h2 id="title-galeria">Cosas que hicimos en clase</h2>
+              <p>Un archivo por sesión. Esta galería se llena con los proyectos reales del grupo.</p>
             </div>
 
-            <div id="eval-code-results" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;"></div>
-          </div>
-        </div>
-
-        <div class="panel" style="grid-column: span 5;">
-          <div class="panel-header">
-            <span class="panel-title">Rúbrica de Entrega Final (GitHub Pages)</span>
-            <span class="mono-tag tabular" id="rubric-total-badge" style="color:var(--accent); font-weight:600;">45 / 100 PTS</span>
-          </div>
-          <div style="padding:18px; display:flex; flex-direction:column; gap:10px;" id="rubric-checklist"></div>
-        </div>
-
-        <div class="panel" style="grid-column: span 12;">
-          <div class="panel-header">
-            <span class="panel-title">Verificación Conceptual (6 Preguntas Clave de Arquitectura Web)</span>
-            <div style="display:flex; gap:10px; align-items:center;">
-              <span class="mono-tag tabular" id="quiz-progress-label">0 / 6 respondidas</span>
-              <button type="button" class="btn btn-sm" id="btn-reset-quiz">Reiniciar</button>
+            <div class="gallery-grid">
+              <article class="gallery-card">
+                <div class="gallery-thumb" style="background:var(--card-done);">
+                  <div><span></span><span></span><span></span></div>
+                </div>
+                <div class="gallery-body">
+                  <span class="gallery-tag">Sesión 03 · CSS</span>
+                  <h3>Mi tarjeta de jugador</h3>
+                  <p>[NOMBRE DEL ALUMNO] · tarjeta.html</p>
+                </div>
+              </article>
+              <article class="gallery-card">
+                <div class="gallery-thumb grid" style="background:var(--card-next);">
+                  <div><i></i><i></i><i></i></div>
+                </div>
+                <div class="gallery-body">
+                  <span class="gallery-tag">Sesión 04 · Grid</span>
+                  <h3>Tres tarjetas en fila</h3>
+                  <p>[NOMBRE DEL ALUMNO] · reticula.html</p>
+                </div>
+              </article>
+              <article class="gallery-card">
+                <div class="gallery-thumb code" style="background:var(--card-current);">
+                  <div>&lt;button&gt;cambia el texto&lt;/button&gt;</div>
+                </div>
+                <div class="gallery-body">
+                  <span class="gallery-tag">Sesión 06 · JS</span>
+                  <h3>Mi primer botón</h3>
+                  <p>[NOMBRE DEL ALUMNO] · interaccion.html</p>
+                </div>
+              </article>
             </div>
-          </div>
-          <div style="padding:18px; display:grid; grid-template-columns:repeat(2, 1fr); gap:16px;" id="course-quiz-grid"></div>
-        </div>
+
+            <div class="gallery-note">
+              <div>
+                <strong>Aquí va tu trabajo</strong>
+                <p>Guarda tu archivo, súbelo a GitHub Pages y pega el enlace en esta galería.</p>
+              </div>
+              <button type="button" class="btn btn-primary" id="btn-gallery-upload">Añadir mi proyecto</button>
+            </div>
+          </section>
+
+        </main>
+
+        <footer class="app-footer">
+          <span>GRID/LAB · Martes y jueves 08:00–09:30</span>
+          <span>Hecho en clase · [TU NOMBRE]</span>
+        </footer>
+
       </div>
-    </section>
-
-  </main>
-
-  <!-- Barra de Estado Técnica Inferior -->
-  <footer class="statusbar">
-    <div class="statusbar-group">
-      <span><span class="status-dot"></span>ARQUITECTURA: TYPESCRIPT + MODULAR CSS</span>
-      <span>COHORTE: 4 SEMANAS (MAR/JUE 08:00–09:30)</span>
     </div>
-    <div class="statusbar-group">
-      <span>ATAJO: CTRL+K</span>
-      <span>REPO: GLACERSV/CODEXWEB</span>
-    </div>
-  </footer>
+  </div>
 
-  <!-- Punto de Entrada Modular (Compilado desde src/main.ts) -->
-  <script type="module" src="./dist/js/main.js"></script>
+  <script type="module" src="./dist/js/main.js?v=2026-11-22g"></script>
 </body>
 </html>

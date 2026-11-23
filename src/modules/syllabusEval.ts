@@ -8,7 +8,14 @@ import {
   QUIZ_QUESTIONS
 } from '../data/curriculum.js';
 import type { SessionStatus } from '../types/course.js';
+import { openClass } from './classLesson.js';
 import { showToast } from '../utils/dom.js';
+
+/* El contenido puede incluir etiquetas como texto (<title>, <!DOCTYPE html>).
+   Las escapamos antes de meterlas en innerHTML para que no se interpreten como HTML. */
+function esc(value: string): string {
+  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
 
 const quizAnswers: Record<number, number> = {};
 
@@ -27,7 +34,7 @@ export function initSyllabusAndEvaluation(): void {
   renderQuiz();
 }
 
-function renderTimeline(): void {
+export function renderTimeline(): void {
   const container = document.getElementById('course-timeline-grid');
   if (!container) return;
 
@@ -36,50 +43,127 @@ function renderTimeline(): void {
 
   const progressBar = document.getElementById('header-progress-bar');
   const sessionLabel = document.getElementById('header-session-label');
+  const progressCount = document.getElementById('header-progress-count');
   if (progressBar) progressBar.style.width = `${pct}%`;
   if (sessionLabel) sessionLabel.textContent = `SESIÓN 0${Math.min(8, doneCount + 1)}/08`;
+  if (progressCount) progressCount.textContent = `${doneCount}/8`;
+
+  const ring = document.getElementById('side-progress-ring');
+  if (ring) {
+    ring.style.setProperty('--course-progress', String(pct));
+    const ringNumber = ring.querySelector('b');
+    if (ringNumber) ringNumber.textContent = `0${Math.min(8, doneCount + 1)}`;
+  }
+
+  const sideTitle = document.getElementById('side-progress-title');
+  const sideSub = document.getElementById('side-progress-sub');
+  if (sideTitle) sideTitle.textContent = `${doneCount} de 8 completadas`;
+  if (sideSub) {
+    const left = COURSE_SESSIONS.length - doneCount;
+    sideSub.textContent = left === 1 ? '1 sesión por delante' : `${left} sesiones por delante`;
+  }
+
+  const files = [
+    'mi-perfil.html',
+    'mi-perfil-v2.html',
+    'tarjeta.html',
+    'reticula.html',
+    'responsive.html',
+    'interaccion.html',
+    'tema.html',
+    'index.html'
+  ];
 
   container.innerHTML = COURSE_SESSIONS.map((s, idx) => {
-    const badgeStyle =
-      s.status === 'done'
-        ? 'color:var(--signal-ok); border-color:rgba(16,185,129,0.3); background:var(--signal-ok-soft);'
-        : s.status === 'current'
-        ? 'color:var(--accent); border-color:var(--accent-border); background:var(--accent-soft);'
-        : 'color:var(--text-muted); border-color:var(--border-hairline); background:var(--bg-surface);';
-
     const statusText =
       s.status === 'done'
-        ? 'COMPLETADA'
+        ? 'Completada'
         : s.status === 'current'
-        ? 'EN CURSO (CLASE 3)'
-        : 'PROGRAMADA';
+        ? 'En curso'
+        : 'Programada';
 
     return `
-      <div class="session-card ${s.status === 'current' ? 'is-current' : ''}">
-        <div class="session-summary" data-session-idx="${idx}">
-          <div style="flex:1;">
-            <div class="mono-tag tabular">${s.week} · ${s.day}</div>
-            <div style="font-weight:600; font-size:13.5px; margin-top:3px;">0${s.id}. ${s.title}</div>
-            <p style="font-size:12px; color:var(--text-secondary); margin-top:5px;">${s.detail}</p>
-            <div style="margin-top:10px; padding-top:8px; border-top:1px solid var(--border-hairline); display:flex; flex-direction:column; gap:3px; font-family:var(--font-mono); font-size:10.5px; color:var(--text-muted);">
-              <span>${s.blocks.teoria}</span>
-              <span>${s.blocks.practica}</span>
-              <span style="color:var(--accent);">${s.blocks.entregable}</span>
-            </div>
-          </div>
-          <span class="badge-cohort" style="${badgeStyle}; flex-shrink:0;">${statusText}</span>
+      <article class="session-card status-${s.status} ${s.status === 'current' ? 'is-current' : ''}"
+               data-session-idx="${idx}">
+        <div class="session-head">
+          <span class="session-index"><b>${String(s.id).padStart(2, '0')}</b> / 08</span>
+          <span class="status-pill ${s.status}">${statusText}</span>
         </div>
-      </div>
+        <div class="session-body">
+          <span class="session-week">${esc(s.week)} · ${esc(s.day)}</span>
+          <h3 class="session-title">${esc(s.title)}</h3>
+          <p class="session-detail">${esc(s.detail)}</p>
+        </div>
+        <div class="session-blocks">
+          <div class="session-block"><span>Teoría</span><span>${esc(s.blocks.teoria)}</span></div>
+          <div class="session-block"><span>Práctica</span><span>${esc(s.blocks.practica)}</span></div>
+          <div class="session-block deliverable"><span>Entrega</span><span>${esc(s.blocks.entregable)}</span></div>
+        </div>
+        <div class="session-foot">
+          <span class="session-file">${files[idx] ?? ''}</span>
+          <button type="button" class="session-action">Cambiar estado</button>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  container.innerHTML = COURSE_SESSIONS.map((s, idx) => {
+    const statusText =
+      s.status === 'done'
+        ? 'Completada'
+        : s.status === 'current'
+        ? 'En curso'
+        : 'Programada';
+
+    return `
+      <article class="session-card status-${s.status} ${s.status === 'current' ? 'is-current' : ''}"
+               data-session-idx="${idx}" data-session-id="${s.id}">
+        <div class="session-head">
+          <span class="session-index"><b>${String(s.id).padStart(2, '0')}</b> / 08</span>
+          <span class="status-pill ${s.status}">${statusText}</span>
+        </div>
+        <div class="session-body">
+          <span class="session-week">${esc(s.week)} · ${esc(s.day)}</span>
+          <h3 class="session-title">${esc(s.title)}</h3>
+          <p class="session-detail">${esc(s.detail)}</p>
+        </div>
+        <div class="session-blocks">
+          <div class="session-block"><span>Teoría</span><span>${esc(s.blocks.teoria)}</span></div>
+          <div class="session-block"><span>Práctica</span><span>${esc(s.blocks.practica)}</span></div>
+          <div class="session-block deliverable"><span>Entrega</span><span>${esc(s.blocks.entregable)}</span></div>
+        </div>
+        <div class="session-foot">
+          <span class="session-file">${files[idx] ?? ''}</span>
+          <button type="button" class="session-action" data-action="cycle-status" data-session-idx="${idx}">Cambiar estado</button>
+        </div>
+      </article>
     `;
   }).join('');
 
   container.querySelectorAll<HTMLElement>('[data-session-idx]').forEach(el => {
-    el.addEventListener('click', () => {
+    el.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement | null;
+      if (target && target.getAttribute('data-action') === 'cycle-status') return;
       const idx = Number(el.dataset.sessionIdx);
+      const session = COURSE_SESSIONS[idx];
+      if (!session) return;
+      // open this class
+      openClass(session.id);
+      // also switch to clase module
+      const navBtn = document.querySelector<HTMLButtonElement>('.nav-item[data-module="clase"]');
+      navBtn?.click();
+    });
+  });
+
+  container.querySelectorAll<HTMLButtonElement>('[data-action="cycle-status"]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const idx = Number(btn.dataset.sessionIdx);
       const session = COURSE_SESSIONS[idx];
       if (!session) return;
       const order: SessionStatus[] = ['done', 'current', 'upcoming'];
       session.status = order[(order.indexOf(session.status) + 1) % order.length] || 'upcoming';
+      // sync completed set? keep simple: just re-render
       renderTimeline();
       showToast(`Sesión 0${session.id} actualizada`);
     });
@@ -159,14 +243,12 @@ function renderRubric(): void {
   box.innerHTML = INITIAL_RUBRIC.map((item, idx) => {
     if (item.done) sum += item.pts;
     return `
-      <label style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 12px; border-radius:var(--radius-sm); background:var(--bg-elevated); border:1px solid var(--border-hairline); cursor:pointer;">
-        <span style="display:flex; align-items:center; gap:9px; font-size:12px;">
-          <input type="checkbox" data-rubric-idx="${idx}" ${
-            item.done ? 'checked' : ''
-          } style="accent-color:var(--accent);" />
-          <span>${item.label}</span>
+      <label class="rubric-item ${item.done ? 'checked' : ''}">
+        <span class="rubric-left">
+          <input type="checkbox" data-rubric-idx="${idx}" ${item.done ? 'checked' : ''} />
+          <span>${esc(item.label)}</span>
         </span>
-        <span class="mono-tag tabular" style="color:var(--accent); font-weight:600;">+${item.pts}</span>
+        <span class="rubric-pts">+${item.pts}</span>
       </label>
     `;
   }).join('');
@@ -199,29 +281,22 @@ function renderQuiz(): void {
   container.innerHTML = QUIZ_QUESTIONS.map(q => {
     const picked = quizAnswers[q.id];
     return `
-      <div style="padding:14px; border-radius:var(--radius-sm); background:var(--bg-elevated); border:1px solid var(--border-hairline);">
-        <div style="font-weight:600; font-size:12.5px; margin-bottom:10px;">${q.question}</div>
-        <div style="display:flex; flex-direction:column; gap:6px;">
+      <div class="quiz-card">
+        <div class="quiz-question">${esc(q.question)}</div>
+        <div class="quiz-options">
           ${q.options
             .map((opt, oIdx) => {
-              let border = 'var(--border-hairline)';
-              let bg = 'var(--bg-surface)';
-              if (picked !== undefined) {
-                if (oIdx === q.correctIndex) {
-                  border = 'var(--signal-ok)';
-                  bg = 'var(--signal-ok-soft)';
-                } else if (oIdx === picked) {
-                  border = 'var(--signal-err)';
-                }
-              }
+              const isCorrect = picked !== undefined && oIdx === q.correctIndex;
+              const isWrong = picked !== undefined && oIdx === picked && oIdx !== q.correctIndex;
+              const cls = isCorrect ? 'is-correct' : isWrong ? 'is-wrong' : '';
+              const mark = isCorrect ? '✓' : isWrong ? '✕' : '';
               return `
                 <button type="button"
-                        class="btn"
+                        class="quiz-option ${cls}"
                         data-q-id="${q.id}"
-                        data-o-idx="${oIdx}"
-                        style="justify-content:space-between; text-align:left; border-color:${border}; background:${bg};">
-                  <span>${opt}</span>
-                  <span class="mono-tag">${picked !== undefined && oIdx === q.correctIndex ? '✓' : ''}</span>
+                        data-o-idx="${oIdx}">
+                  <span>${esc(opt)}</span>
+                  <span class="quiz-mark">${mark}</span>
                 </button>
               `;
             })
