@@ -105,7 +105,6 @@ ${css}
 }
 
 export function initCssBlockBuilder(): void {
-  if (rules.length === 0) loadDemo();
   renderAll();
   document.getElementById('btn-css-clear')?.addEventListener('click', () => {
     rules = []; selectedRuleUid = null; selectedPropUid = null; renderAll(); showToast('Lienzo limpio');

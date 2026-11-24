@@ -57,7 +57,6 @@ ${css}
 </body></html>`;
 }
 export function initCssBlockBuilder() {
-    if (rules.length === 0) loadDemo();
     renderAll();
     document.getElementById('btn-css-clear')?.addEventListener('click', () => { rules = []; selectedRuleUid = null; selectedPropUid = null; renderAll(); showToast('Lienzo limpio'); });
     document.getElementById('btn-css-demo')?.addEventListener('click', () => { loadDemo(); renderAll(); showToast('Ejemplo cargado'); });
