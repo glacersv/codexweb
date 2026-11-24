@@ -1,0 +1,169 @@
+/* ==========================================================================
+   TOKENS.CSS — AULA EDITORIAL
+   Paleta cálida de la plantilla Eduhouse, con una escala tipográfica y de
+   profundidad pensada para verse como un producto terminado, no como un demo.
+   ========================================================================== */
+
+:root {
+  /* Superficies */
+  --bg-canvas: #E7D6BC;
+  --bg-canvas-2: #F1E4D2;
+  --bg-surface: #FFFFFF;
+  --bg-sidebar: #F7F2E9;
+  --bg-elevated: #FBF8F3;
+  --bg-interactive: #F0E9DD;
+  --bg-glass: rgba(255, 255, 255, 0.9);
+  --bg-ink: #23201B;
+
+  /* Texto */
+  --text-primary: #1C1A16;
+  --text-secondary: #5C574E;
+  --text-muted: #756C5E;
+  --text-inverse: #FFF9EE;
+
+  /* Bordes y profundidad */
+  --border-hairline: #ECE4D7;
+  --border-subtle: #DDD2C0;
+  --border-strong: #C9BBA4;
+  --border-focus: rgba(154, 91, 0, 0.55);
+  --inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --shadow-sm: 0 1px 2px rgba(60, 42, 18, 0.05);
+  --shadow-md: 0 6px 18px -8px rgba(60, 42, 18, 0.18);
+  --shadow-lg: 0 24px 60px -28px rgba(60, 42, 18, 0.34);
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.8) inset,
+                 0 8px 24px -18px rgba(60, 42, 18, 0.28);
+  --shadow-elevated: var(--shadow-md);
+
+  /* Acento mostaza: texto profundo + relleno brillante */
+  --accent: #9A5B00;
+  --accent-strong: #E8A317;
+  --accent-hover: #D18F0C;
+  --accent-ink: #2B1D04;
+  --accent-soft: #FCEFD2;
+  --accent-border: #F0D6A0;
+
+  /* Azul de apoyo */
+  --blueprint: #2C77AC;
+  --blueprint-soft: #E8F2FA;
+  --blueprint-border: #BFDAEC;
+
+  /* Señales */
+  --signal-ok: #2C7A50;
+  --signal-ok-soft: #E7F4EC;
+  --signal-ok-border: #BFE0CC;
+  --signal-warn: #96600A;
+  --signal-warn-soft: #FCEFD2;
+  --signal-err: #AE4133;
+  --signal-err-soft: #FBECE8;
+  --signal-err-border: #EFC7BF;
+
+  /* Tarjetas pastel del aula */
+  --card-done: #EFEAFB;
+  --card-done-ink: #5B45A0;
+  --card-current: #FDEEDF;
+  --card-current-ink: #A85A1E;
+  --card-next: #E7F4FB;
+  --card-next-ink: #216E9E;
+  --card-gallery: #EAF6EE;
+  --card-gallery-ink: #2C7A50;
+
+  /* Movimiento sobrio */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --dur-slow: 260ms;
+
+  /* Tipografía */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  --text-2xs: 11.5px;
+  --text-xs: 12.5px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-md: 18px;
+  --text-lg: 20px;
+  --text-xl: 26px;
+  --text-2xl: 32px;
+  --text-3xl: 42px;
+
+  /* Radios */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-shell: 30px;
+}
+
+/* Tema oscuro cálido (sepia), no carbono/neón */
+html[data-theme="dark"] {
+  --bg-canvas: #211C16;
+  --bg-canvas-2: #2A241C;
+  --bg-surface: #2E2820;
+  --bg-sidebar: #26211A;
+  --bg-elevated: #342D24;
+  --bg-interactive: #3E362B;
+  --bg-glass: rgba(46, 40, 32, 0.94);
+  --bg-ink: #F7F1E6;
+
+  --text-primary: #F7F1E6;
+  --text-secondary: #CBBFA9;
+  --text-muted: #9E927C;
+  --text-inverse: #241F19;
+
+  --border-hairline: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.15);
+  --border-strong: rgba(255, 255, 255, 0.24);
+  --border-focus: rgba(240, 184, 75, 0.6);
+  --inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 22px -10px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 28px 70px -30px rgba(0, 0, 0, 0.7);
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.05) inset,
+                 0 10px 26px -18px rgba(0, 0, 0, 0.6);
+  --shadow-elevated: var(--shadow-md);
+
+  --accent: #F0B84B;
+  --accent-strong: #E8A317;
+  --accent-hover: #D18F0C;
+  --accent-ink: #2B1D04;
+  --accent-soft: rgba(240, 184, 75, 0.13);
+  --accent-border: rgba(240, 184, 75, 0.38);
+
+  --blueprint: #7FC1EC;
+  --blueprint-soft: rgba(127, 193, 236, 0.12);
+  --blueprint-border: rgba(127, 193, 236, 0.34);
+
+  --signal-ok: #7FCEA2;
+  --signal-ok-soft: rgba(127, 206, 162, 0.13);
+  --signal-ok-border: rgba(127, 206, 162, 0.34);
+  --signal-warn: #F0C978;
+  --signal-warn-soft: rgba(240, 201, 120, 0.13);
+  --signal-err: #E89387;
+  --signal-err-soft: rgba(232, 147, 135, 0.13);
+  --signal-err-border: rgba(232, 147, 135, 0.34);
+
+  --card-done: #342E3F;
+  --card-done-ink: #C3B4F0;
+  --card-current: #3B2E24;
+  --card-current-ink: #F0B98A;
+  --card-next: #26343C;
+  --card-next-ink: #9AD2F0;
+  --card-gallery: #29362E;
+  --card-gallery-ink: #A6D9BC;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

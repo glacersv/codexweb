@@ -1,0 +1,10 @@
+/* ==========================================================================
+   MAIN.CSS — PUNTO DE ENTRADA MODULAR DE ESTILOS
+   El sufijo ?v= rompe la caché del navegador cuando cambia el diseño.
+   ========================================================================== */
+
+@import './tokens.css';
+@import './base.css';
+@import './layout.css';
+@import './components.css';
+@import './labs.css';
