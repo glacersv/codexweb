@@ -658,7 +658,7 @@ header {
                 <div class="eyebrow">Laboratorio 06 · CSS por bloques</div>
                 <h1 class="headline" id="title-bloquescss">Pinta tu página con bloques</h1>
                 <p class="subheadline">
-                  Cada bloque es una propiedad CSS de apariencia. Elige un selector (body, h1, .tarjeta...), agrega bloques de color, tamaño, borde y más. Mira el resultado al instante.
+                  Cada bloque es una propiedad CSS de apariencia. Elige un selector ( etiqueta como body, h1, header o nav; o clase como .tarjeta ), agrega bloques de color, tamaño, borde y más. Mira el resultado al instante.
                 </p>
                 <div class="hero-meta">
                   <span class="meta-chip"><b>Bloques</b> = propiedades CSS</span>
@@ -692,10 +692,13 @@ header {
                   </div>
                   <div class="pad">
                     <div class="row" style="margin-bottom:12px;gap:8px;">
-                      <input id="css-rule-input" class="code-area" style="min-height:40px;flex:1;" placeholder="Selector nuevo: body, h1, .tarjeta, button..." />
+                      <input id="css-rule-input" class="code-area" style="min-height:40px;flex:1;" placeholder="Escribe una etiqueta (header, nav, h1) o una clase (.menu, .tarjeta)..." />
                       <button type="button" class="btn btn-sm btn-primary" id="btn-css-add-rule">+ Regla</button>
                     </div>
-                    <p class="hint" style="margin-bottom:10px;">Sugerencias: <code>body</code> <code>h1</code> <code>p</code> <code>button</code> <code>.tarjeta</code> <code>header</code> <code>footer</code></p>
+                    <p class="hint" style="margin-bottom:10px;">
+                      <strong>Para dar estilo al menú usa:</strong> <code>nav</code> (la etiqueta) o <code>.menu</code> (si le pusiste class="menu").<br>
+                      Sugerencias: <code>body</code> <code>header</code> <code>nav</code> <code>h1</code> <code>p</code> <code>button</code> <code>.menu</code> <code>.tarjeta</code> <code>footer</code>
+                    </p>
                     <div id="css-canvas" class="blocks-canvas"></div>
                   </div>
                 </div>

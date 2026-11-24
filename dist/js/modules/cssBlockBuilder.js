@@ -45,12 +45,12 @@ function buildPreviewHtml() {
     return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><style>
 body{font-family:system-ui,sans-serif;padding:16px;margin:0;background:#fdf6e3;color:#3d312c;}
 .preview-card{background:#fff;border:2px dashed #d4a574;border-radius:8px;padding:16px;margin:12px 0;}
-.preview-menu{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;}
+nav.preview-menu, .preview-menu{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;}
 .preview-menu span{background:#fff3e0;border:2px solid #d4a574;padding:6px 12px;border-radius:6px;font-weight:600;}
 ${css}
 </style></head><body>
 <header><h1>Mi página increíble</h1></header>
-<div class="menu preview-menu"><span>Inicio</span><span>Fotos</span><span>Contacto</span></div>
+<nav class="menu preview-menu"><span>Inicio</span><span>Fotos</span><span>Contacto</span></nav>
 <p>Este es un párrafo de ejemplo. Los estilos que crees se aplican aquí.</p>
 <div class="tarjeta preview-card"><h3>Tarjeta de ejemplo</h3><p>Soy una tarjeta con clase .tarjeta</p><button>Botón</button></div>
 <footer><small>Pie de página</small></footer>
