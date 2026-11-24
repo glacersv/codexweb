@@ -2,7 +2,7 @@
    COURSE.TS — CONTRATOS E INTERFACES TYPESCRIPT DEL AULA VIRTUAL
    ========================================================================== */
 
-export type ModuleId = 'clase' | 'rayosx' | 'grid' | 'mockup' | 'teoria' | 'ruta' | 'galeria' | 'bloques';
+export type ModuleId = 'clase' | 'rayosx' | 'grid' | 'mockup' | 'teoria' | 'ruta' | 'galeria' | 'bloques' | 'bloquescss';
 
 export type SessionStatus = 'done' | 'current' | 'upcoming';
 

@@ -510,6 +510,17 @@
 }
 .block-props-head { display: flex; align-items: center; gap: 8px; }
 .block-props-head .mono-tag { background: var(--blk-c, var(--accent)); color: #fff; border: none; }
+.css-prop-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 10px; border-radius: 4px;
+  font-family: var(--font-mono); font-size: 11px;
+  cursor: pointer; border: 1px solid transparent;
+}
+.css-prop-row:hover { background: var(--blk-s, var(--bg-interactive)); }
+.css-prop-row.is-prop-selected { background: var(--blk-s, var(--accent-soft)); border-color: var(--blk-c, var(--accent)); }
+.css-prop-name { color: var(--blk-c, var(--accent)); font-weight: 700; }
+.css-prop-val { color: var(--text-secondary); margin-left: auto; }
+.css-prop-row .blk-act { margin-left: 4px; }
 .blocks-preview {
   width: 100%;
   min-height: 320px;

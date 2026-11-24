@@ -8,6 +8,7 @@ import { initClassLesson } from './modules/classLesson.js';
 import { initTheorySandbox } from './modules/theorySandbox.js';
 import { initXrayLab, loadXrayCase } from './modules/xrayLab.js';
 import { initBlockBuilder } from './modules/blockBuilder.js';
+import { initCssBlockBuilder } from './modules/cssBlockBuilder.js';
 import { initCommandPalette, openCommandPalette, showToast } from './utils/dom.js';
 const pageMeta = {
     clase: {
@@ -41,6 +42,10 @@ const pageMeta = {
     bloques: {
         title: 'Construye con bloques',
         subtitle: 'Arma tu página encajando bloques HTML como piezas.'
+    },
+    bloquescss: {
+        title: 'Estilos con bloques',
+        subtitle: 'Pinta tu página agregando bloques de apariencia CSS.'
     }
 };
 export function activateModule(moduleId) {
@@ -103,6 +108,7 @@ window.addEventListener('DOMContentLoaded', () => {
     initGridStudio();
     initMockupBuilder();
     initBlockBuilder();
+    initCssBlockBuilder();
     initTheorySandbox();
     initClassLesson(activateModule, (lab) => { activateModule(lab); }, () => renderTimeline());
     initSyllabusAndEvaluation();
@@ -116,6 +122,7 @@ window.addEventListener('DOMContentLoaded', () => {
         { id: 'm5', category: 'CURSO', label: 'Plan de las 8 clases', shortcut: '5', run: () => activateModule('ruta') },
         { id: 'm6', category: 'CURSO', label: 'Galería de la clase', shortcut: '6', run: () => activateModule('galeria') },
         { id: 'm7', category: 'LABORATORIO 05', label: 'Construye con bloques', shortcut: '7', run: () => activateModule('bloques') },
+        { id: 'm8', category: 'LABORATORIO 06', label: 'Estilos con bloques', shortcut: '8', run: () => activateModule('bloquescss') },
         { id: 'p1', category: 'RETÍCULAS', label: 'Cargar ejemplo: página con barra lateral', shortcut: 'G H', run: () => { activateModule('grid'); loadGridPreset('holygrail'); } },
         { id: 'p2', category: 'RETÍCULAS', label: 'Cargar ejemplo: tarjetas', shortcut: 'G B', run: () => { activateModule('grid'); loadGridPreset('bento'); } },
         { id: 'x1', category: 'FILAS Y COLUMNAS', label: 'Analizar el caso 2', shortcut: 'X 2', run: () => { activateModule('rayosx'); loadXrayCase(1); } },

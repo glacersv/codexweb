@@ -89,6 +89,11 @@
             <span class="nav-text">Construye con bloques</span>
             <span class="nav-num">07</span>
           </button>
+          <button type="button" class="nav-item" data-module="bloquescss">
+            <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5L12 2z"/></svg></span>
+            <span class="nav-text">Estilos con bloques</span>
+            <span class="nav-num">08</span>
+          </button>
         </nav>
 
         <div class="side-progress">
@@ -641,6 +646,89 @@ header {
                     <span class="mono-tag">RESULTADO</span>
                   </div>
                   <iframe id="blocks-preview" class="blocks-preview" title="Vista previa de tu página"></iframe>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== LAB 06: ESTILOS CON BLOQUES ========== -->
+          <section id="mod-bloquescss" class="module-panel" aria-labelledby="title-bloquescss">
+            <div class="section-hero">
+              <div>
+                <div class="eyebrow">Laboratorio 06 · CSS por bloques</div>
+                <h1 class="headline" id="title-bloquescss">Pinta tu página con bloques</h1>
+                <p class="subheadline">
+                  Cada bloque es una propiedad CSS de apariencia. Elige un selector (body, h1, .tarjeta...), agrega bloques de color, tamaño, borde y más. Mira el resultado al instante.
+                </p>
+                <div class="hero-meta">
+                  <span class="meta-chip"><b>Bloques</b> = propiedades CSS</span>
+                  <span class="meta-chip">Edita valores</span>
+                  <span class="meta-chip">Descarga tu <b>.css</b></span>
+                </div>
+              </div>
+              <div class="row">
+                <button type="button" class="btn btn-sm" id="btn-css-demo">Cargar ejemplo</button>
+                <button type="button" class="btn btn-sm err-text" id="btn-css-clear">Limpiar</button>
+              </div>
+            </div>
+
+            <div class="blocks-layout">
+              <div class="panel">
+                <div class="panel-header">
+                  <span class="panel-title">1. Bloques de apariencia</span>
+                  <span class="mono-tag">HAZ CLIC PARA AGREGAR</span>
+                </div>
+                <div class="pad">
+                  <p class="hint" style="margin-bottom:12px;">Primero selecciona una regla en el lienzo. Luego haz clic en una propiedad para agregarla.</p>
+                  <div id="css-palette" class="blocks-palette"></div>
+                </div>
+              </div>
+
+              <div class="stack-16">
+                <div class="panel">
+                  <div class="panel-header">
+                    <span class="panel-title">2. Tus reglas CSS</span>
+                    <span class="mono-tag tabular" id="css-count">0 reglas</span>
+                  </div>
+                  <div class="pad">
+                    <div class="row" style="margin-bottom:12px;gap:8px;">
+                      <input id="css-rule-input" class="code-area" style="min-height:40px;flex:1;" placeholder="Selector nuevo: body, h1, .tarjeta, button..." />
+                      <button type="button" class="btn btn-sm btn-primary" id="btn-css-add-rule">+ Regla</button>
+                    </div>
+                    <p class="hint" style="margin-bottom:10px;">Sugerencias: <code>body</code> <code>h1</code> <code>p</code> <code>button</code> <code>.tarjeta</code> <code>header</code> <code>footer</code></p>
+                    <div id="css-canvas" class="blocks-canvas"></div>
+                  </div>
+                </div>
+
+                <div class="panel">
+                  <div class="panel-header">
+                    <span class="panel-title">3. Editar propiedad</span>
+                    <span class="mono-tag">VALOR</span>
+                  </div>
+                  <div class="pad" id="css-props">
+                    <p class="hint">Selecciona una propiedad para cambiar su valor.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stack-16">
+                <div class="panel">
+                  <div class="panel-header">
+                    <span class="panel-title">4. Código CSS real</span>
+                    <div class="row">
+                      <button type="button" class="btn btn-sm" id="btn-css-copy">Copiar</button>
+                      <button type="button" class="btn btn-sm btn-primary" id="btn-css-download">Descargar .css</button>
+                    </div>
+                  </div>
+                  <pre class="code-pane"><code id="css-code-output"></code></pre>
+                </div>
+
+                <div class="panel">
+                  <div class="panel-header">
+                    <span class="panel-title">Vista previa</span>
+                    <span class="mono-tag">RESULTADO</span>
+                  </div>
+                  <iframe id="css-preview" class="blocks-preview" title="Vista previa CSS"></iframe>
                 </div>
               </div>
             </div>
