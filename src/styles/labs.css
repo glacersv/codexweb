@@ -529,6 +529,58 @@
   border-radius: 0 0 var(--radius-md) var(--radius-md);
 }
 
+/* 07. TALLER INTEGRADO HTML + CSS */
+.studio-layout {
+  grid-template-columns: minmax(320px, 1.1fr) minmax(280px, 0.9fr) minmax(320px, 1.1fr);
+}
+.studio-selectors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.studio-selector-chip {
+  appearance: none;
+  cursor: pointer;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  transition: all 160ms var(--ease-out-quart);
+}
+.studio-selector-chip:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+.studio-selector-chip.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 700;
+}
+.studio-prop-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--border-hairline);
+  border-left: 3px solid var(--blk-c, var(--accent));
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.studio-prop-row:hover { background: var(--blk-s, var(--bg-interactive)); }
+.studio-prop-row .studio-prop-name {
+  min-width: 150px;
+  color: var(--blk-c, var(--accent));
+  font-weight: 700;
+}
+.studio-prop-row .select-input { min-height: 34px; }
+.studio-prop-row .blk-act { margin-left: auto; }
+
 @media (max-width: 1200px) {
   .blocks-layout { grid-template-columns: 1fr; }
 }

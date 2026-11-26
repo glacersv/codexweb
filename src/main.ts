@@ -10,6 +10,7 @@ import { initTheorySandbox } from './modules/theorySandbox.js';
 import { initXrayLab, loadXrayCase } from './modules/xrayLab.js';
 import { initBlockBuilder } from './modules/blockBuilder.js';
 import { initCssBlockBuilder } from './modules/cssBlockBuilder.js';
+import { initHtmlCssStudio } from './modules/htmlCssStudio.js';
 import type { ModuleId } from './types/course.js';
 import {
   initCommandPalette,
@@ -53,6 +54,10 @@ const pageMeta: Record<ModuleId, { title: string; subtitle: string }> = {
   bloquescss: {
     title: 'Estilos con bloques',
     subtitle: 'Pinta tu página agregando bloques de apariencia CSS.'
+  },
+  htmlcss: {
+    title: 'HTML + CSS juntos',
+    subtitle: 'Escribe HTML, crea clases y ponles CSS en el mismo lugar.'
   }
 };
 
@@ -122,6 +127,7 @@ window.addEventListener('DOMContentLoaded', () => {
   initMockupBuilder();
   initBlockBuilder();
   initCssBlockBuilder();
+  initHtmlCssStudio();
   initTheorySandbox();
   initClassLesson(activateModule, (lab) => { activateModule(lab); }, () => renderTimeline());
   initSyllabusAndEvaluation();
@@ -137,6 +143,7 @@ window.addEventListener('DOMContentLoaded', () => {
     { id: 'm6', category: 'CURSO', label: 'Galería de la clase', shortcut: '6', run: () => activateModule('galeria') },
     { id: 'm7', category: 'LABORATORIO 05', label: 'Construye con bloques', shortcut: '7', run: () => activateModule('bloques') },
     { id: 'm8', category: 'LABORATORIO 06', label: 'Estilos con bloques', shortcut: '8', run: () => activateModule('bloquescss') },
+    { id: 'm9', category: 'LABORATORIO 07', label: 'HTML + CSS juntos', shortcut: '9', run: () => activateModule('htmlcss') },
     { id: 'p1', category: 'RETÍCULAS', label: 'Cargar ejemplo: página con barra lateral', shortcut: 'G H', run: () => { activateModule('grid'); loadGridPreset('holygrail'); } },
     { id: 'p2', category: 'RETÍCULAS', label: 'Cargar ejemplo: tarjetas', shortcut: 'G B', run: () => { activateModule('grid'); loadGridPreset('bento'); } },
     { id: 'x1', category: 'FILAS Y COLUMNAS', label: 'Analizar el caso 2', shortcut: 'X 2', run: () => { activateModule('rayosx'); loadXrayCase(1); } },

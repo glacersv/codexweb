@@ -10,6 +10,8 @@ const BLOCKS = [
     { id: 'nav', label: 'NAV', tag: 'nav', color: '#6366F1', soft: 'rgba(99,102,241,0.14)', description: 'Menú de navegación con enlaces.', defaultContent: 'Inicio|Productos|Contacto', template: (c) => { const links = c.split('|').map(s => s.trim()).filter(Boolean); const items = links.map(l => `    <a href="#">${esc(l)}</a>`).join('\n'); return `<nav>\n${items || '    <a href="#">Inicio</a>'}\n</nav>`; }, canNest: false },
     { id: 'main', label: 'MAIN', tag: 'main', color: '#A855F7', soft: 'rgba(168,85,247,0.14)', description: 'Contenido principal de la página.', defaultContent: '', template: () => `<main>\n  <!-- Contenido principal -->\n</main>`, canNest: true },
     { id: 'section', label: 'SECTION', tag: 'section', color: '#EC4899', soft: 'rgba(236,72,153,0.14)', description: 'Una sección o bloque de contenido.', defaultContent: 'Mi sección', template: (c) => `<section>\n  <h2>${esc(c)}</h2>\n  <p>Escribe aquí tu contenido.</p>\n</section>`, canNest: true },
+    { id: 'grid', label: 'GRID', tag: 'div', color: '#D946EF', soft: 'rgba(217,70,239,0.14)', description: 'Contenedor de columnas. Selecciónalo y agrega bloques COLUMNA dentro.', defaultContent: '3', template: (c) => `<div class="bloque-grid" style="display:grid;grid-template-columns:repeat(${c},1fr);gap:12px;">\n  <!-- Agrega columnas aquí -->\n</div>`, canNest: true },
+    { id: 'columna', label: 'COLUMNA', tag: 'article', color: '#0EA5E9', soft: 'rgba(14,165,233,0.14)', description: 'Una columna dentro de GRID. Mete título, texto, imagen o botón.', defaultContent: 'Columna 1', template: (c) => `<article class="bloque-columna">\n  <h3>${esc(c)}</h3>\n  <!-- Contenido de la columna -->\n</article>`, canNest: true },
     { id: 'h1', label: 'TÍTULO', tag: 'h1', color: '#EF4444', soft: 'rgba(239,68,68,0.14)', description: 'Título grande para tu página.', defaultContent: 'Hola, este es mi título', template: (c) => `<h1>${esc(c)}</h1>`, canNest: false },
     { id: 'p', label: 'TEXTO', tag: 'p', color: '#78716C', soft: 'rgba(120,113,108,0.14)', description: 'Un párrafo de texto.', defaultContent: 'Este es un párrafo de ejemplo. Cámbialo por tu texto.', template: (c) => `<p>${esc(c)}</p>`, canNest: false },
     { id: 'img', label: 'IMAGEN', tag: 'img', color: '#14B8A6', soft: 'rgba(20,184,166,0.14)', description: 'Muestra una imagen. Pon la URL o nombre del archivo.', defaultContent: 'https://via.placeholder.com/400x200?text=Mi+Imagen', template: (c) => `<img src="${esc(c)}" alt="Mi imagen" style="max-width:100%;border-radius:8px;">`, canNest: false },
@@ -41,6 +43,8 @@ function nodeToHtml(node, indent) {
         if (node.type === 'main') return `${pad}<main>${inner}</main>`;
         if (node.type === 'header') { const titleLine = `\n${pad}  <h1>${esc(node.content)}</h1>`; const kids = node.children.length ? '\n' + node.children.map(c => nodeToHtml(c, indent + 1)).join('\n') : ''; return `${pad}<header>${titleLine}${kids}\n${pad}</header>`; }
         if (node.type === 'section') { const titleLine = `\n${pad}  <h2>${esc(node.content)}</h2>`; const kids = node.children.length ? '\n' + node.children.map(c => nodeToHtml(c, indent + 1)).join('\n') : `\n${pad}  <p>Contenido de la sección.</p>`; return `${pad}<section>${titleLine}${kids}\n${pad}</section>`; }
+        if (node.type === 'grid') { const cols = Math.max(1, parseInt(node.content, 10) || 3); return `${pad}<div class="bloque-grid" style="display:grid;grid-template-columns:repeat(${cols},1fr);gap:12px;">${inner}</div>`; }
+        if (node.type === 'columna') { const titleLine = `\n${pad}  <h3>${esc(node.content)}</h3>`; const kids = node.children.length ? '\n' + node.children.map(c => nodeToHtml(c, indent + 1)).join('\n') : `\n${pad}  <!-- Mete aquí título, texto o botones -->`; return `${pad}<article class="bloque-columna" style="background:#fff;border:2px solid #d4a574;border-radius:8px;padding:14px;">${titleLine}${kids}\n${pad}</article>`; }
         return `${pad}<${def.tag}>${inner}</${def.tag}>`;
     }
     return pad + def.template(node.content);
@@ -173,7 +177,7 @@ function renderProps() {
     if (!node) { panel.innerHTML = ''; return; }
     const def = getDef(node.type);
     if (!def) return;
-    const canEdit = !def.canNest || node.type === 'header' || node.type === 'section';
+    const canEdit = !def.canNest || node.type === 'header' || node.type === 'section' || node.type === 'grid' || node.type === 'columna';
     panel.innerHTML = `
     <div class="block-props-head" style="--blk-c:${def.color}">
       <span class="mono-tag">&lt;${def.tag}&gt;</span>
@@ -183,7 +187,7 @@ function renderProps() {
     ${canEdit ? `
       <label class="field-label" for="block-content-input">Contenido del bloque</label>
       <textarea id="block-content-input" class="code-area" rows="3" style="min-height:72px;">${esc(node.content)}</textarea>
-      <p class="hint" style="margin-top:8px;">${node.type === 'nav' ? 'Separa los enlaces con | (ej: Inicio|Juegos|Contacto)' : 'Cambia el texto y mira el código actualizarse.'}</p>
+      <p class="hint" style="margin-top:8px;">${node.type === 'nav' ? 'Separa los enlaces con | (ej: Inicio|Juegos|Contacto)' : node.type === 'grid' ? 'Escribe cuántas columnas quieres (ej: 2 o 3). Luego mete bloques COLUMNA dentro.' : node.type === 'columna' ? 'Escribe el título de la columna. Mete títulos, textos o botones dentro.' : 'Cambia el texto y mira el código actualizarse.'}</p>
     ` : `<p class="mini-note">Este bloque es un contenedor. Selecciónalo y haz clic en otros bloques para meterlos dentro.</p>`}
   `;
     const input = document.getElementById('block-content-input');

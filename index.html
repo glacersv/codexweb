@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./src/styles/main.css?v=2026-11-22g" />
+  <link rel="stylesheet" href="./src/styles/main.css?v=2026-11-26a" />
 </head>
 <body>
 
@@ -93,6 +93,11 @@
             <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5L12 2z"/></svg></span>
             <span class="nav-text">Estilos con bloques</span>
             <span class="nav-num">08</span>
+          </button>
+          <button type="button" class="nav-item" data-module="htmlcss">
+            <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M14 4l-4 16"/></svg></span>
+            <span class="nav-text">HTML + CSS juntos</span>
+            <span class="nav-num">09</span>
           </button>
         </nav>
 
@@ -580,7 +585,7 @@ header {
                 <div class="eyebrow">Laboratorio 05 · HTML por bloques</div>
                 <h1 class="headline" id="title-bloques">Construye tu página con bloques</h1>
                 <p class="subheadline">
-                  Cada bloque es una etiqueta HTML. Haz clic para agregar, selecciona un bloque para meter otros adentro, y mira cómo se escribe el código de verdad.
+                  Cada bloque es una etiqueta HTML. Haz clic para agregar, selecciona un bloque para meter otros adentro, y mira cómo se escribe el código de verdad. Ahora puedes usar <b>GRID</b> y <b>COLUMNA</b> para crear columnas.
                 </p>
                 <div class="hero-meta">
                   <span class="meta-chip"><b>Bloques</b> = etiquetas HTML</span>
@@ -737,6 +742,139 @@ header {
             </div>
           </section>
 
+          <!-- ========== LAB 07: HTML + CSS JUNTOS ========== -->
+          <section id="mod-htmlcss" class="module-panel" aria-labelledby="title-htmlcss">
+            <div class="section-hero">
+              <div>
+                <div class="eyebrow">Laboratorio 07 · HTML + CSS juntos</div>
+                <h1 class="headline" id="title-htmlcss">Escribe HTML y ponle CSS aquí mismo</h1>
+                <p class="subheadline">
+                  Escribe tu HTML o inserta un bloque rápido. Crea una clase con <code>class="..."</code> y, sin salir de esta herramienta, agrega propiedades CSS al selector que elijas.
+                </p>
+                <div class="hero-meta">
+                  <span class="meta-chip"><b>HTML</b> a mano o con bloques</span>
+                  <span class="meta-chip"><b>Clases</b> y etiquetas como selectores</span>
+                  <span class="meta-chip">Descarga tu <b>.html</b> completo</span>
+                </div>
+              </div>
+              <div class="row">
+                <button type="button" class="btn btn-sm" id="btn-studio-demo">Cargar ejemplo</button>
+                <button type="button" class="btn btn-sm err-text" id="btn-studio-reset">Limpiar</button>
+              </div>
+            </div>
+
+            <div class="blocks-layout studio-layout">
+              <div class="stack-16">
+                <div class="panel">
+                  <div class="panel-header">
+                    <span class="panel-title">1. Tu HTML</span>
+                    <span class="mono-tag">ESCRIBE O INSERTA</span>
+                  </div>
+                  <div class="pad">
+                    <textarea id="studio-html-input" class="code-area" style="min-height:210px;width:100%;" spellcheck="false" placeholder="Escribe aquí: &lt;h1&gt;Hola&lt;/h1&gt;"></textarea>
+                    <p class="hint" style="margin:10px 0 8px;">Bloques rápidos (se insertan donde esté el cursor):</p>
+                    <div class="row" style="flex-wrap:wrap;gap:6px;">
+                      <button type="button" class="btn btn-sm" data-studio-insert="header">header</button>
+                      <button type="button" class="btn btn-sm" data-studio-insert="nav">nav</button>
+                      <button type="button" class="btn btn-sm" data-studio-insert="main">main</button>
+                      <button type="button" class="btn btn-sm" data-studio-insert="h1">h1</button>
+                      <button type="button" class="btn btn-sm" data-studio-insert="p">p</button>
+                      <button type="button" class="btn btn-sm" data-studio-insert="button">button</button>
+                      <button type="button" class="btn btn-sm" data-studio-insert="tarjeta">.tarjeta</button>
+                      <button type="button" class="btn btn-sm" data-studio-insert="grid">.grid</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel">
+                  <div class="panel-header">
+                    <span class="panel-title">2. Crear una clase</span>
+                    <span class="mono-tag">CLASS=""</span>
+                  </div>
+                  <div class="pad">
+                    <div class="row" style="gap:8px;">
+                      <input id="studio-class-name" class="code-area" style="min-height:40px;flex:1;" placeholder="tarjeta" />
+                      <button type="button" class="btn btn-sm btn-primary" id="btn-studio-create-class">+ Crear clase</button>
+                    </div>
+                    <p class="hint" style="margin-top:8px;">Se agrega un <code>&lt;div class="tarjeta"&gt;</code> y queda seleccionado para ponerle CSS.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stack-16">
+                <div class="panel">
+                  <div class="panel-header">
+                    <span class="panel-title">3. Selectores</span>
+                    <span class="mono-tag">ELIGE UNO</span>
+                  </div>
+                  <div class="pad">
+                    <p class="hint" style="margin-bottom:10px;">Aparecen las etiquetas y las clases que escribiste en tu HTML.</p>
+                    <div id="studio-selectors" class="studio-selectors"></div>
+                  </div>
+                </div>
+
+                <div class="panel">
+                  <div class="panel-header">
+                    <span class="panel-title">4. Propiedades CSS</span>
+                    <span class="mono-tag">HAZ CLIC PARA AGREGAR</span>
+                  </div>
+                  <div class="pad">
+                    <p class="hint" style="margin-bottom:10px;">Selecciona un selector arriba y agrega bloques de estilo.</p>
+                    <div id="studio-prop-palette" class="blocks-palette"></div>
+                  </div>
+                </div>
+
+                <div class="panel">
+                  <div class="panel-header">
+                    <span class="panel-title">5. Estilos del selector</span>
+                    <span class="mono-tag">EDITA VALORES</span>
+                  </div>
+                  <div class="pad" id="studio-props"></div>
+                </div>
+
+                <div class="panel">
+                  <div class="panel-header">
+                    <span class="panel-title">CSS extra (opcional)</span>
+                    <span class="mono-tag">A MANO</span>
+                  </div>
+                  <div class="pad">
+                    <textarea id="studio-extra-css" class="code-area" style="min-height:90px;width:100%;" spellcheck="false" placeholder=".miclase { color: red; }"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stack-16">
+                <div class="panel">
+                  <div class="panel-header">
+                    <span class="panel-title">6. CSS generado</span>
+                    <div class="row">
+                      <button type="button" class="btn btn-sm" id="btn-studio-copy">Copiar página</button>
+                    </div>
+                  </div>
+                  <pre class="code-pane"><code id="studio-css-output"></code></pre>
+                </div>
+
+                <div class="panel">
+                  <div class="panel-header">
+                    <span class="panel-title">7. Documento completo</span>
+                    <div class="row">
+                      <button type="button" class="btn btn-sm btn-primary" id="btn-studio-download">Descargar .html</button>
+                    </div>
+                  </div>
+                  <pre class="code-pane"><code id="studio-doc-output"></code></pre>
+                </div>
+
+                <div class="panel">
+                  <div class="panel-header">
+                    <span class="panel-title">Vista previa</span>
+                    <span class="mono-tag">RESULTADO</span>
+                  </div>
+                  <iframe id="studio-preview" class="blocks-preview" title="Vista previa de HTML + CSS"></iframe>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <!-- ========== GALERÍA DE LA CLASE ========== -->
           <section id="mod-galeria" class="module-panel" aria-labelledby="title-galeria">
             <div class="gallery-intro">
@@ -798,6 +936,6 @@ header {
     </div>
   </div>
 
-  <script type="module" src="./dist/js/main.js?v=2026-11-22g"></script>
+  <script type="module" src="./dist/js/main.js?v=2026-11-26a"></script>
 </body>
 </html>

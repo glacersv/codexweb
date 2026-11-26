@@ -106,6 +106,28 @@ const BLOCKS: BlockDef[] = [
     canNest: true
   },
   {
+    id: 'grid',
+    label: 'GRID',
+    tag: 'div',
+    color: '#D946EF',
+    soft: 'rgba(217,70,239,0.14)',
+    description: 'Contenedor de columnas. Selecciónalo y agrega bloques COLUMNA dentro.',
+    defaultContent: '3',
+    template: (c) => `<div class="bloque-grid" style="display:grid;grid-template-columns:repeat(${c},1fr);gap:12px;">\n  <!-- Agrega columnas aquí -->\n</div>`,
+    canNest: true
+  },
+  {
+    id: 'columna',
+    label: 'COLUMNA',
+    tag: 'article',
+    color: '#0EA5E9',
+    soft: 'rgba(14,165,233,0.14)',
+    description: 'Una columna dentro de GRID. Mete título, texto, imagen o botón.',
+    defaultContent: 'Columna 1',
+    template: (c) => `<article class="bloque-columna">\n  <h3>${esc(c)}</h3>\n  <!-- Contenido de la columna -->\n</article>`,
+    canNest: true
+  },
+  {
     id: 'h1',
     label: 'TÍTULO',
     tag: 'h1',
@@ -232,6 +254,17 @@ function nodeToHtml(node: BlockNode, indent: number): string {
       const titleLine = `\n${pad}  <h2>${esc(node.content)}</h2>`;
       const kids = node.children.length ? '\n' + node.children.map(c => nodeToHtml(c, indent + 1)).join('\n') : `\n${pad}  <p>Contenido de la sección.</p>`;
       return `${pad}<section>${titleLine}${kids}\n${pad}</section>`;
+    }
+    if (node.type === 'grid') {
+      const cols = Math.max(1, parseInt(node.content, 10) || 3);
+      return `${pad}<div class="bloque-grid" style="display:grid;grid-template-columns:repeat(${cols},1fr);gap:12px;">${inner}</div>`;
+    }
+    if (node.type === 'columna') {
+      const titleLine = `\n${pad}  <h3>${esc(node.content)}</h3>`;
+      const kids = node.children.length
+        ? '\n' + node.children.map(c => nodeToHtml(c, indent + 1)).join('\n')
+        : `\n${pad}  <!-- Mete aquí título, texto o botones -->`;
+      return `${pad}<article class="bloque-columna" style="background:#fff;border:2px solid #d4a574;border-radius:8px;padding:14px;">${titleLine}${kids}\n${pad}</article>`;
     }
     return `${pad}<${def.tag}>${inner}</${def.tag}>`;
   }
@@ -416,7 +449,7 @@ function renderProps(): void {
   if (!node) { panel.innerHTML = ''; return; }
   const def = getDef(node.type);
   if (!def) return;
-  const canEdit = !def.canNest || node.type === 'header' || node.type === 'section';
+  const canEdit = !def.canNest || node.type === 'header' || node.type === 'section' || node.type === 'grid' || node.type === 'columna';
   panel.innerHTML = `
     <div class="block-props-head" style="--blk-c:${def.color}">
       <span class="mono-tag">&lt;${def.tag}&gt;</span>
@@ -426,7 +459,7 @@ function renderProps(): void {
     ${canEdit ? `
       <label class="field-label" for="block-content-input">Contenido del bloque</label>
       <textarea id="block-content-input" class="code-area" rows="3" style="min-height:72px;">${esc(node.content)}</textarea>
-      <p class="hint" style="margin-top:8px;">${node.type === 'nav' ? 'Separa los enlaces con | (ej: Inicio|Juegos|Contacto)' : 'Cambia el texto y mira el código actualizarse.'}</p>
+      <p class="hint" style="margin-top:8px;">${node.type === 'nav' ? 'Separa los enlaces con | (ej: Inicio|Juegos|Contacto)' : node.type === 'grid' ? 'Escribe cuántas columnas quieres (ej: 2 o 3). Luego mete bloques COLUMNA dentro.' : node.type === 'columna' ? 'Escribe el título de la columna. Mete títulos, textos o botones dentro.' : 'Cambia el texto y mira el código actualizarse.'}</p>
     ` : `<p class="mini-note">Este bloque es un contenedor. Selecciónalo y haz clic en otros bloques para meterlos dentro.</p>`}
   `;
   const input = document.getElementById('block-content-input') as HTMLTextAreaElement | null;
